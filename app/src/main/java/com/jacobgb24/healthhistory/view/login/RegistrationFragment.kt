@@ -27,6 +27,10 @@ class RegistrationFragment : Fragment() {
             (activity as LoginActivity).setFragment(LoginFragment())
         }
 
+        enableButtonWhenComplete(view.register_butt, view.register_email, view.register_password,
+                                 view.registration_password_confirm)
+        validateEmail(view.register_email)
+
         return view
     }
 

@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isEmpty
 import com.jacobgb24.healthhistory.R
+import com.jacobgb24.healthhistory.controller.LoginActivity
+import kotlinx.android.synthetic.main.fragment_login.view.*
+import kotlinx.android.synthetic.main.fragment_registration.view.*
 
 class LoginFragment : Fragment() {
 
@@ -20,6 +24,12 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_login, container, false)
 
+        view.switch_register_butt.setOnClickListener {
+            (activity as LoginActivity).setFragment(RegistrationFragment())
+        }
+
+        enableButtonWhenComplete(view.login_butt, view.login_email, view.login_password)
+        validateEmail(view.login_email)
 
         return view
     }
