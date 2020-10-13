@@ -36,6 +36,11 @@ class RegistrationFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_registration, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = model
+
+        binding.switchLoginButt.setOnClickListener {
+            (activity as LoginActivity).setFragment(LoginFragment())
+        }
+
         return binding.root
     }
 
