@@ -24,13 +24,6 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_login, container, false)
 
-        view.switch_register_butt.setOnClickListener {
-            (activity as LoginActivity).setFragment(RegistrationFragment())
-        }
-
-        enableButtonWhenComplete(view.login_butt, view.login_email, view.login_password)
-        validateEmail(view.login_email)
-
         return view
     }
 

@@ -30,4 +30,12 @@
         app:layout_constraintTop_toBottomOf="@id/dev_ip"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Save"/>
+
+    <CheckBox
+        android:id="@+id/dev_mock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dev_ip"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Use Mock Server"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
