@@ -23,14 +23,8 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
-      # Step 1: Check the code with ktlint, you can remove this job if you don't use ktlint
-      - name: Run Kotlin Linter
-        run: ./gradlew ktlintStagingDebugCheck
-
-      # Step 2: Check the code with Android linter
       - name: Run Android Linter
         run: ./gradlew lintStagingDebug
 
-      # Step 3: Run your unit tests
       - name: Run Unit Tests
         run: ./gradlew testStagingDebugUnitTest
