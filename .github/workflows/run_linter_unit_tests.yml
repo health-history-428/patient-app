@@ -19,6 +19,9 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+          
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
 
       # Step 1: Check the code with ktlint, you can remove this job if you don't use ktlint
       - name: Run Kotlin Linter
