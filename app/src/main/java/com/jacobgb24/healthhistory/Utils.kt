@@ -8,7 +8,7 @@ import androidx.lifecycle.MediatorLiveData
 import com.google.android.material.textfield.TextInputLayout
 
 
-@BindingAdapter("app:errorText")
+@BindingAdapter("errorText")
 fun setErrorMessage(view: TextInputLayout, errorMessage: String?) {
     view.error = errorMessage
 }
