@@ -1,32 +1,29 @@
-package com.jacobgb24.healthhistory.controller
+package com.jacobgb24.healthhistory
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.jacobgb24.healthhistory.R
-import com.jacobgb24.healthhistory.server.MockServer
-import com.jacobgb24.healthhistory.server.Server
-import com.jacobgb24.healthhistory.view.login.LoginFragment
-import com.jacobgb24.healthhistory.view.login.RegistrationFragment
-import kotlinx.android.synthetic.main.dev_dialog.*
+import com.jacobgb24.healthhistory.views.login.LoginFragment
+import com.jacobgb24.healthhistory.views.login.RegistrationFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.dev_dialog.view.*
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private lateinit var sharedPrefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        sharedPrefs = getPreferences(Context.MODE_PRIVATE)
+        sharedPrefs = getSharedPreferences("PREFS", Context.MODE_PRIVATE)
 
-        HealthHistoryApp.setServer(sharedPrefs.getBoolean("SERVER_MOCK", false))
+        BaseApplication.setServer(sharedPrefs.getBoolean("SERVER_MOCK", false))
 
         if (sharedPrefs.getString("USER_EMAIL", "") != "") {
             setFragment(LoginFragment())
@@ -61,7 +58,7 @@ class LoginActivity : AppCompatActivity() {
                     sharedPrefs.edit().putInt("SERVER_PORT", dialogView.dev_port.text.toString().toInt())
 
                     sharedPrefs.edit().putBoolean("SERVER_MOCK", dialogView.dev_mock.isChecked)
-                    HealthHistoryApp.setServer(dialogView.dev_mock.isChecked)
+                    BaseApplication.setServer(dialogView.dev_mock.isChecked)
                     dialog.dismiss()
                 }
 

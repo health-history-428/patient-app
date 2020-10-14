@@ -1,4 +1,4 @@
-package com.jacobgb24.healthhistory.controller
+package com.jacobgb24.healthhistory
 //
 //import android.os.Bundle
 //import com.google.android.material.bottomnavigation.BottomNavigationView

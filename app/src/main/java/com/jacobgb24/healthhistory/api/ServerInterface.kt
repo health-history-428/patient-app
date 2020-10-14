@@ -1,4 +1,4 @@
-package com.jacobgb24.healthhistory.server
+package com.jacobgb24.healthhistory.api
 
 interface ServerInterface {
     fun setAddr(ip: String, port: Int)

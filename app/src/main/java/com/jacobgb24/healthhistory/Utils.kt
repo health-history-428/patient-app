@@ -1,5 +1,7 @@
 package com.jacobgb24.healthhistory
 
+import android.content.Context
+import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -18,4 +20,9 @@ fun <T,S> combineData(vararg data: LiveData<T>, func: () -> S): MediatorLiveData
             addSource(d) { value = func.invoke() }
         }
     }
+}
+
+
+fun quickLog(msg: String) {
+    Log.e(Throwable().stackTrace[1].className.split(".").last(), msg)
 }

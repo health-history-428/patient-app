@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.jacobgb24.healthhistory.viewmodel.RegistrationViewModel" />
+            type="com.jacobgb24.healthhistory.viewmodels.RegistrationViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"

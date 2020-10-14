@@ -1,4 +1,4 @@
-package com.jacobgb24.healthhistory.server
+package com.jacobgb24.healthhistory.api
 
 import kotlin.concurrent.schedule
 import java.util.*

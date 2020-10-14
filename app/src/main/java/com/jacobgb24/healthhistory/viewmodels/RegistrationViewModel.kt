@@ -1,8 +1,7 @@
-package com.jacobgb24.healthhistory.viewmodel
+package com.jacobgb24.healthhistory.viewmodels
 
 import android.util.Log
 import android.util.Patterns
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -25,7 +24,7 @@ class RegistrationViewModel: ViewModel() {
             "Passwords do not match"
     }
 
-    val allValid = combineData(email, password, passwordConfirm) {
+    val allValid = combineData(email, password, passwordConfirm, passwordConfirmError, emailError) {
         email.value?.isNotEmpty() ?: false && emailError.value == null &&
                 password.value?.isNotEmpty() ?: false &&
                 passwordConfirm.value?.isNotEmpty() ?: false && passwordConfirmError.value == null
