@@ -23,7 +23,6 @@ class LoginActivity : AppCompatActivity() {
 
         sharedPrefs = getSharedPreferences("PREFS", Context.MODE_PRIVATE)
 
-        BaseApplication.setServer(sharedPrefs.getBoolean("SERVER_MOCK", false))
 
         if (sharedPrefs.getString("USER_EMAIL", "") != "") {
             setFragment(LoginFragment())
@@ -50,15 +49,14 @@ class LoginActivity : AppCompatActivity() {
                 val dialogView = LayoutInflater.from(this).inflate(R.layout.dev_dialog, null)
                 val dialog = AlertDialog.Builder(this).setView(dialogView).setTitle("Dev Tools").show()
 
-                dialogView.dev_ip.setText(sharedPrefs.getString("SERVER_IP", "0.0.0.0"))
-                dialogView.dev_port.setText(sharedPrefs.getInt("SERVER_PORT", 3000).toString())
+                dialogView.dev_ip.setText(sharedPrefs.getString("SERVER_IP", "127.0.0.1"))
+                dialogView.dev_port.setText(sharedPrefs.getInt("SERVER_PORT", 8000).toString())
 
                 dialogView.dev_save.setOnClickListener {
                     sharedPrefs.edit().putString("SERVER_IP", dialogView.dev_ip.text.toString())
                     sharedPrefs.edit().putInt("SERVER_PORT", dialogView.dev_port.text.toString().toInt())
 
                     sharedPrefs.edit().putBoolean("SERVER_MOCK", dialogView.dev_mock.isChecked)
-                    BaseApplication.setServer(dialogView.dev_mock.isChecked)
                     dialog.dismiss()
                 }
 
