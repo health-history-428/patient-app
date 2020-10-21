@@ -13,6 +13,15 @@
         app:layout_constraintStart_toStartOf="parent"
         android:hint="Server IP"
         app:layout_constraintWidth_percent=".75"/>
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:scrollHorizontally="false"
+        app:layout_constraintTop_toBottomOf="@id/dev_ip"
+        app:layout_constraintEnd_toStartOf="@id/dev_save"
+        android:text="Note: 10.0.2.2 is the computer's localhost when on emulator">
+    </TextView>
     <EditText
         android:id="@+id/dev_port"
         android:layout_width="0dp"
@@ -31,11 +40,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Save"/>
 
-    <CheckBox
-        android:id="@+id/dev_mock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/dev_ip"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="Use Mock Server"/>
+<!--    <CheckBox-->
+<!--        android:id="@+id/dev_mock"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/dev_ip"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        android:text="Use Mock Server"/>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
