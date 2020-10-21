@@ -10,18 +10,25 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class BaseApplication : Application() {
     companion object {
+        private lateinit var context: Context
         lateinit var sharedPreferences: SharedPreferences
         lateinit var api: ApiInterface
+
+        fun refreshApi() {
+            api = ApiBuilder.getNewApi()
+        }
+
+        fun getString(id: Int): String {
+            return context.getString(id)
+        }
     }
 
     override fun onCreate() {
         super.onCreate()
+        context = applicationContext
         sharedPreferences = applicationContext.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
         api = ApiBuilder.getNewApi()
     }
 
-    fun refreshApi() {
-        api = ApiBuilder.getNewApi()
-    }
 
 }

@@ -49,14 +49,17 @@ class LoginActivity : AppCompatActivity() {
                 val dialogView = LayoutInflater.from(this).inflate(R.layout.dev_dialog, null)
                 val dialog = AlertDialog.Builder(this).setView(dialogView).setTitle("Dev Tools").show()
 
-                dialogView.dev_ip.setText(sharedPrefs.getString("SERVER_IP", "127.0.0.1"))
+                dialogView.dev_ip.setText(sharedPrefs.getString("SERVER_IP", "10.0.2.2"))
                 dialogView.dev_port.setText(sharedPrefs.getInt("SERVER_PORT", 8000).toString())
 
                 dialogView.dev_save.setOnClickListener {
-                    sharedPrefs.edit().putString("SERVER_IP", dialogView.dev_ip.text.toString())
-                    sharedPrefs.edit().putInt("SERVER_PORT", dialogView.dev_port.text.toString().toInt())
+                    sharedPrefs.edit()
+                        .putString("SERVER_IP", dialogView.dev_ip.text.toString())
+                        .putInt("SERVER_PORT", dialogView.dev_port.text.toString().toInt())
+                        .putBoolean("SERVER_MOCK", dialogView.dev_mock.isChecked)
+                        .apply()
 
-                    sharedPrefs.edit().putBoolean("SERVER_MOCK", dialogView.dev_mock.isChecked)
+                    BaseApplication.refreshApi()
                     dialog.dismiss()
                 }
 

@@ -11,7 +11,7 @@ object ApiBuilder {
 
     private fun buildURL(): String {
         return "http://%s:%d/".format(
-            BaseApplication.sharedPreferences.getString("SERVER_IP", "127.0.0.1"),
+            BaseApplication.sharedPreferences.getString("SERVER_IP", "10.0.2.2"),
             BaseApplication.sharedPreferences.getInt("SERVER_PORT", 8000))
     }
 
