@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
                     sharedPrefs.edit()
                         .putString("SERVER_IP", dialogView.dev_ip.text.toString())
                         .putInt("SERVER_PORT", dialogView.dev_port.text.toString().toInt())
-                        .putBoolean("SERVER_MOCK", dialogView.dev_mock.isChecked)
+//                        .putBoolean("SERVER_MOCK", dialogView.dev_mock.isChecked)
                         .apply()
 
                     BaseApplication.refreshApi()
