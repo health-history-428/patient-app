@@ -45,7 +45,7 @@ class LoginViewModel @ViewModelInject constructor(@ApplicationContext applicatio
                     )
             )))
         } catch (exception: Exception) {
-            emit(Resource.error(null, "Error: ${ApiError(exception).error}"))
+            emit(Resource.error(null, "Error: ${ApiError(exception).errorMsg}"))
         }
     }
 
