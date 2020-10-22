@@ -37,7 +37,7 @@ class RegistrationViewModel: ViewModel() {
     }
 
     fun tryRegister() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(null))
+        emit(Resource.loading())
         try {
             emit(Resource.success(BaseApplication.api.registerUser(
                 ApiInterface.RegisterReq(
