@@ -2,10 +2,13 @@ package com.jacobgb24.healthhistory.api
 
 import com.jacobgb24.healthhistory.BaseApplication
 import com.jacobgb24.healthhistory.quickLog
+import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.CookieManager
+import java.util.concurrent.TimeUnit
 
 object ApiBuilder {
 
@@ -15,21 +18,28 @@ object ApiBuilder {
             BaseApplication.sharedPreferences.getInt("SERVER_PORT", 8000))
     }
 
-    private fun getDebugClient(): OkHttpClient {
-        val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
+    private val client: OkHttpClient
+        get() {
+            val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+
+            return OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .cookieJar(JavaNetCookieJar(CookieManager()))
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)
+                .build()
         }
 
-        return OkHttpClient.Builder().apply {
-            this.addInterceptor(interceptor)
-        }.build()
-    }
 
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl(buildURL())
             .addConverterFactory(GsonConverterFactory.create())
-            .client(getDebugClient())
+            .client(client)
             .build() //Doesn't require the adapter
     }
 

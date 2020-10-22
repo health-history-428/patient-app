@@ -6,12 +6,12 @@ import retrofit2.http.POST
 
 interface ApiInterface {
 
-    data class Login(val email: String, val password: String)
+    data class LoginReq(val email: String, val password: String)
     @POST("login")
-    suspend fun loginUser(@Body obj: Login): User
+    suspend fun loginUser(@Body obj: LoginReq): User
 
 
-    data class Register(val email: String, val password: String, val confirm_password: String)
+    data class RegisterReq(val email: String, val password: String, val confirm_password: String)
     @POST("register")
-    suspend fun registerUser(@Body obj: Register): User
+    suspend fun registerUser(@Body obj: RegisterReq): User
 }

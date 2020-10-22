@@ -1,17 +1,16 @@
 package com.jacobgb24.healthhistory.viewmodels
 
-import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.jacobgb24.healthhistory.BaseApplication
+import com.jacobgb24.healthhistory.api.ApiError
 import com.jacobgb24.healthhistory.api.ApiInterface
 import com.jacobgb24.healthhistory.api.Resource
 import com.jacobgb24.healthhistory.combineData
 import kotlinx.coroutines.Dispatchers
-import okhttp3.Dispatcher
 import java.lang.Exception
 
 class RegistrationViewModel: ViewModel() {
@@ -41,14 +40,14 @@ class RegistrationViewModel: ViewModel() {
         emit(Resource.loading(null))
         try {
             emit(Resource.success(BaseApplication.api.registerUser(
-                ApiInterface.Register(
+                ApiInterface.RegisterReq(
                     email.value ?: "",
                     password.value ?: "",
                     passwordConfirm.value ?: ""
                 )
             )))
         } catch (exception: Exception) {
-            emit(Resource.error(null, exception.message ?: "Error"))
+            emit(Resource.error(null, "Error: ${ApiError(exception).error}"))
         }
     }
 

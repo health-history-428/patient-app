@@ -1,5 +1,6 @@
 package com.jacobgb24.healthhistory.views.login
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,11 +10,9 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import com.jacobgb24.healthhistory.R
-import com.jacobgb24.healthhistory.LoginActivity
+import com.jacobgb24.healthhistory.*
 import com.jacobgb24.healthhistory.api.Status
 import com.jacobgb24.healthhistory.databinding.FragmentRegistrationBinding
-import com.jacobgb24.healthhistory.quickLog
 import com.jacobgb24.healthhistory.viewmodels.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,9 +37,10 @@ class RegistrationFragment : Fragment() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
-                            quickLog(resource.data.toString())
                             binding.registerProgress.visibility = View.GONE
+                            BaseApplication.sharedPreferences.edit()
+                                .putString("USER_EMAIL", resource.data?.email).apply()
+                            startActivity(Intent(activity, MainActivity::class.java))
                         }
                         Status.LOADING -> {
                             binding.registerProgress.visibility = View.VISIBLE
