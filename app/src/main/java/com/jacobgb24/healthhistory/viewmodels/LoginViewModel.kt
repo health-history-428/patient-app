@@ -16,10 +16,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
 
-class LoginViewModel @ViewModelInject constructor(@ApplicationContext application: Context): ViewModel() {
-    private val sharedPreferences = application.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
-    // TODO: test email gets set properly
-    val email = MutableLiveData(sharedPreferences.getString("USER_EMAIL", "") ?: "")
+class LoginViewModel: ViewModel() {
+
+    val email = MutableLiveData(BaseApplication.sharedPreferences.getString("USER_EMAIL", "") ?: "")
     val password = MutableLiveData("")
 
 

@@ -12,7 +12,9 @@ class BaseApplication : Application() {
     companion object {
         private lateinit var context: Context
         lateinit var sharedPreferences: SharedPreferences
+            private set
         lateinit var api: ApiInterface
+            private set
 
         fun refreshApi() {
             api = ApiBuilder.getNewApi()
