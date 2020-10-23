@@ -9,11 +9,11 @@ import org.junit.Rule
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
-
-@RunWith(RobolectricTestRunner::class)
-@Config(manifest= Config.NONE)
-class LoginViewModelTest {
-
+//
+//@RunWith(RobolectricTestRunner::class)
+//@Config(manifest= Config.NONE)
+//class LoginViewModelTest {
+//
 //    @get:Rule val instantTaskExecutorRule = InstantTaskExecutorRule()
 //    private lateinit var viewModel: LoginViewModel
 //
@@ -49,4 +49,4 @@ class LoginViewModelTest {
 //        viewModel.email.value = "bademail"
 //        viewModel.allValid.assertValue { !it }
 //    }
-}
+//}
