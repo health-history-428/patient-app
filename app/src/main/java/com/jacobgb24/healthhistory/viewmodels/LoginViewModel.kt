@@ -1,6 +1,8 @@
 package com.jacobgb24.healthhistory.viewmodels
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.util.Patterns
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
@@ -15,15 +17,22 @@ import com.jacobgb24.healthhistory.combineData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
+import kotlin.coroutines.CoroutineContext
 
-class LoginViewModel: ViewModel() {
+class LoginViewModel @ViewModelInject constructor(
+    @ApplicationContext context: Context,
+    private var api: ApiInterface,
+    private val dispatcher: CoroutineContext
+) : ViewModel() {
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences("PREFS", MODE_PRIVATE)
 
-    val email = MutableLiveData(BaseApplication.sharedPreferences.getString("USER_EMAIL", "") ?: "")
+    val email = MutableLiveData(sharedPreferences.getString("USER_EMAIL", "") ?: "")
     val password = MutableLiveData("")
 
 
     val emailError = Transformations.map(email) { e ->
-        if (e.isEmpty()  || Patterns.EMAIL_ADDRESS.matcher(e).matches()) null else "Invalid email"
+        if (e.isEmpty() || Patterns.EMAIL_ADDRESS.matcher(e).matches()) null else "Invalid email"
     }
     val passwordError = MutableLiveData<String?>(null)
 
@@ -33,16 +42,19 @@ class LoginViewModel: ViewModel() {
                 password.value?.isNotEmpty() ?: false
     }
 
-    fun tryLogin() = liveData(Dispatchers.IO) {
+    fun tryLogin() = liveData(dispatcher) {
         emit(Resource.loading())
         try {
             emit(
-                Resource.success(BaseApplication.api.loginUser(
-                    ApiInterface.LoginReq(
-                    email.value ?: "",
-                    password.value ?: ""
+                Resource.success(
+                    api.loginUser(
+                        ApiInterface.LoginReq(
+                            email.value ?: "",
+                            password.value ?: ""
+                        )
                     )
-            )))
+                )
+            )
         } catch (exception: Exception) {
             emit(Resource.error(null, "Error: ${ApiError(exception).errorMsg}"))
         }

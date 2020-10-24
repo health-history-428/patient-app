@@ -3,7 +3,13 @@ package com.jacobgb24.healthhistory
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert
+import retrofit2.HttpException
+import retrofit2.Response
+import kotlin.Exception
+import kotlin.reflect.KClass
 
 
 /**
@@ -27,5 +33,16 @@ fun <T> LiveData<T>.assertValue(pred: (T) -> Boolean?) {
 fun bindObserver(vararg datas: LiveData<out Any?>) {
     for (d in datas) {
         d.observeForever {}
+    }
+}
+
+fun assertThrows(exception: KClass<out Exception>, code: () -> Unit) {
+    try {
+        code.invoke()
+        Assert.fail("Expected Exception ${exception::class.simpleName} to be raised, but non thrown")
+    } catch (e: Exception) {
+        if (!exception.isInstance(e)) {
+            Assert.fail("Expected Exception ${exception::class.simpleName} to be raised, but ${e::class.simpleName} thrown")
+        }
     }
 }

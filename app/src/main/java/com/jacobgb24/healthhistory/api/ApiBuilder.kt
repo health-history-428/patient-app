@@ -1,7 +1,7 @@
 package com.jacobgb24.healthhistory.api
 
-import com.jacobgb24.healthhistory.BaseApplication
-import com.jacobgb24.healthhistory.quickLog
+import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -11,12 +11,7 @@ import java.net.CookieManager
 import java.util.concurrent.TimeUnit
 
 object ApiBuilder {
-
-    private fun buildURL(): String {
-        return "http://%s:%d/".format(
-            BaseApplication.sharedPreferences.getString("SERVER_IP", "10.0.2.2"),
-            BaseApplication.sharedPreferences.getInt("SERVER_PORT", 8000))
-    }
+    private var api: ApiInterface? = null
 
     private val client: OkHttpClient
         get() {
@@ -27,24 +22,40 @@ object ApiBuilder {
             return OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .cookieJar(JavaNetCookieJar(CookieManager()))
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .readTimeout(20, TimeUnit.SECONDS)
-                .writeTimeout(20, TimeUnit.SECONDS)
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .build()
         }
 
-
-    private fun getRetrofit(): Retrofit {
+    private fun getRetrofit(ip: String, port: Int): Retrofit {
+        val url = "http://%s:%d/".format(ip, port)
         return Retrofit.Builder()
-            .baseUrl(buildURL())
+            .baseUrl(url)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build() //Doesn't require the adapter
     }
 
-    fun getNewApi(): ApiInterface {
-        quickLog(buildURL())
-        return getRetrofit().create(ApiInterface::class.java)
+
+    private fun createInstance(context: Context): ApiInterface {
+        val sharedPreferences = context.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+
+        return getRetrofit(
+            sharedPreferences.getString("SERVER_IP", "10.0.2.2") ?: "",
+            sharedPreferences.getInt("SERVER_PORT", 8000))
+            .create(ApiInterface::class.java)
+    }
+
+    fun resetUrl(context: Context) {
+        api = createInstance(context)
+    }
+
+    fun getApi(context: Context): ApiInterface {
+        if (api == null) {
+            return createInstance(context)
+        }
+        return api!!
     }
 }

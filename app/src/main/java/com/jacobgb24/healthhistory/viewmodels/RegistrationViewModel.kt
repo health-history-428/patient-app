@@ -1,6 +1,7 @@
 package com.jacobgb24.healthhistory.viewmodels
 
 import android.util.Patterns
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
@@ -12,8 +13,12 @@ import com.jacobgb24.healthhistory.api.Resource
 import com.jacobgb24.healthhistory.combineData
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
+import kotlin.coroutines.CoroutineContext
 
-class RegistrationViewModel: ViewModel() {
+class RegistrationViewModel @ViewModelInject constructor(
+    private var api: ApiInterface,
+    private val dispatcher: CoroutineContext
+) : ViewModel() {
     val email = MutableLiveData("")
     val password = MutableLiveData("")
     val passwordConfirm = MutableLiveData("")
@@ -36,16 +41,20 @@ class RegistrationViewModel: ViewModel() {
                 passwordConfirm.value?.isNotEmpty() ?: false && passwordConfirmError.value == null
     }
 
-    fun tryRegister() = liveData(Dispatchers.IO) {
+    fun tryRegister() = liveData(dispatcher) {
         emit(Resource.loading())
         try {
-            emit(Resource.success(BaseApplication.api.registerUser(
-                ApiInterface.RegisterReq(
-                    email.value ?: "",
-                    password.value ?: "",
-                    passwordConfirm.value ?: ""
+            emit(
+                Resource.success(
+                    api.registerUser(
+                        ApiInterface.RegisterReq(
+                            email.value ?: "",
+                            password.value ?: "",
+                            passwordConfirm.value ?: ""
+                        )
+                    )
                 )
-            )))
+            )
         } catch (exception: Exception) {
             emit(Resource.error(null, "Error: ${ApiError(exception).errorMsg}"))
         }

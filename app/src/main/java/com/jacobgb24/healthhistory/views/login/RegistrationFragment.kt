@@ -1,5 +1,6 @@
 package com.jacobgb24.healthhistory.views.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,7 +18,7 @@ import com.jacobgb24.healthhistory.viewmodels.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RegistrationFragment : Fragment() {
+class RegistrationFragment: Fragment() {
     private val model: RegistrationViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +28,8 @@ class RegistrationFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_registration, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = model
+
+        val sharedPreferences = context?.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
 
         binding.switchLoginButt.setOnClickListener {
             (activity as LoginActivity).setFragment(LoginFragment())
@@ -38,8 +41,8 @@ class RegistrationFragment : Fragment() {
                     when (resource.status) {
                         Resource.Status.SUCCESS -> {
                             binding.registerProgress.visibility = View.GONE
-                            BaseApplication.sharedPreferences.edit()
-                                .putString("USER_EMAIL", resource.data?.email).apply()
+                            sharedPreferences?.edit()
+                                ?.putString("USER_EMAIL", resource.data?.email)?.apply()
                             startActivity(Intent(activity, MainActivity::class.java))
                         }
                         Resource.Status.LOADING -> {
