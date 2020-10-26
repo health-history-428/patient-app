@@ -30,7 +30,6 @@ class LoginViewModel @ViewModelInject constructor(
     val email = MutableLiveData(sharedPreferences.getString("USER_EMAIL", "") ?: "")
     val password = MutableLiveData("")
 
-
     val emailError = Transformations.map(email) { e ->
         if (e.isEmpty() || Patterns.EMAIL_ADDRESS.matcher(e).matches()) null else "Invalid email"
     }

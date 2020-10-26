@@ -7,6 +7,9 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
 
+/**
+ * This is currently unused
+ */
 class MockApi: ApiInterface {
 
     private inline fun <reified T> createError(err: String): HttpException {
@@ -20,14 +23,14 @@ class MockApi: ApiInterface {
     override suspend fun loginUser(obj: ApiInterface.LoginReq): User {
         if (obj.email.contains("bad"))
             throw createError<User>("Invalid Email")
-        return User(1, "a@v.c", "1")
+        return User("a@v.c")
     }
 
     override suspend fun registerUser(obj: ApiInterface.RegisterReq): User {
         print("register called")
         if (obj.email.contains("bad"))
             throw createError<User>("Invalid Email")
-        return User(1, "a@v.c", "1")
+        return User("a@v.c")
     }
 
 }

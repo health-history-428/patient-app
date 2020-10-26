@@ -27,7 +27,6 @@ class RegistrationViewModel @ViewModelInject constructor(
     val emailError = Transformations.map(email) { e ->
         if (e.isEmpty() || Patterns.EMAIL_ADDRESS.matcher(e).matches()) null else "Invalid email"
     }
-    val passwordError = MutableLiveData<String?>(null)
     val passwordConfirmError = combineData(password, passwordConfirm) {
         if (passwordConfirm.value?.isEmpty() == true || password.value == passwordConfirm.value)
             null

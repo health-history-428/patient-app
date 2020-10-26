@@ -1,7 +1,7 @@
 package com.jacobgb24.healthhistory.api
 
 /**
- * Wrapper class for livedata network reequ
+ * Wrapper class for API responses. Used to emit multiple values from LiveData
  */
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
     enum class Status {

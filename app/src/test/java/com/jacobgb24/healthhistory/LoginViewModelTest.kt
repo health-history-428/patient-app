@@ -3,8 +3,7 @@ package com.jacobgb24.healthhistory
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import com.jacobgb24.healthhistory.viewmodels.LoginViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import org.junit.Test
 
 import org.junit.Before
@@ -20,15 +19,14 @@ class LoginViewModelTest {
     @get:Rule val instantTaskExecutorRule = InstantTaskExecutorRule()
     private lateinit var viewModel: LoginViewModel
 
-    @ExperimentalCoroutinesApi
     @Before
     fun setUp() {
-        viewModel = LoginViewModel(ApplicationProvider.getApplicationContext(), MockApi(), TestCoroutineDispatcher())
+        viewModel = LoginViewModel(ApplicationProvider.getApplicationContext(), MockApi(), Dispatchers.Default)
         bindObserver(viewModel.password, viewModel.email, viewModel.emailError)
     }
 
     @Test
-    fun testEmailError() {
+    fun `test invalid email causes email error to populate`() {
         viewModel.email.value = "bademail"
         viewModel.emailError.assertValue { it?.isNotEmpty() }
 
@@ -37,7 +35,7 @@ class LoginViewModelTest {
     }
 
     @Test
-    fun testAllValid() {
+    fun  `test that allValid is true iff all fields are valid`() {
         viewModel.allValid.assertValue { !it }
 
         viewModel.email.value = "a@b.c"

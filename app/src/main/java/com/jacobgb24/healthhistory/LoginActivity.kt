@@ -23,9 +23,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // if we have a saved email start on the login screen
         sharedPrefs = getSharedPreferences("PREFS", Context.MODE_PRIVATE)
-
-
         if (sharedPrefs.getString("USER_EMAIL", "") != "") {
             setFragment(LoginFragment())
         }

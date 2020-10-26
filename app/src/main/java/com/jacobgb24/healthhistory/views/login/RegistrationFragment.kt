@@ -23,7 +23,7 @@ class RegistrationFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+        // bindings setup
         val binding: FragmentRegistrationBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_registration, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -35,6 +35,7 @@ class RegistrationFragment: Fragment() {
             (activity as LoginActivity).setFragment(LoginFragment())
         }
 
+        // register button handler
         binding.registerButt.setOnClickListener {
             model.tryRegister().observe(viewLifecycleOwner, Observer {
                 it?.let { resource ->

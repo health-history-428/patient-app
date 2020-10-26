@@ -14,6 +14,9 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * Defines how Hilt should inject different values
+ */
 @Module
 @InstallIn(ApplicationComponent::class)
 class AppModule {

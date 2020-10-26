@@ -1,17 +1,8 @@
 package com.jacobgb24.healthhistory
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
-import com.jacobgb24.healthhistory.api.Resource
-import com.jacobgb24.healthhistory.model.User
 import com.jacobgb24.healthhistory.viewmodels.RegistrationViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.TestCoroutineScope
-import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
 import org.junit.Test
 
 import org.junit.Before
@@ -20,27 +11,22 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 
-@ExperimentalCoroutinesApi
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest= Config.NONE)
 class RegistrationViewModelTest {
-
-    private val dispatcher = TestCoroutineDispatcher()
-
 
     @get:Rule val instantTaskExecutorRule = InstantTaskExecutorRule()
     private lateinit var viewModel: RegistrationViewModel
 
     @Before
     fun setUp() {
-        Dispatchers.setMain(dispatcher)
-        viewModel = RegistrationViewModel(MockApi(), dispatcher)
+        viewModel = RegistrationViewModel(MockApi(), Dispatchers.Default)
         bindObserver(viewModel.passwordConfirmError, viewModel.passwordConfirm,
             viewModel.password, viewModel.email, viewModel.emailError)
     }
 
     @Test
-    fun testEmailError() {
+    fun `test invalid email causes email error to populate`() {
         viewModel.email.value = "bademail"
         viewModel.emailError.assertValue { it?.isNotEmpty() }
 
@@ -49,7 +35,7 @@ class RegistrationViewModelTest {
     }
 
     @Test
-    fun testPasswordConfirmError() {
+    fun `test non-matching password confirm causes error to populate`() {
         viewModel.password.value = "password"
         viewModel.passwordConfirm.value = "password"
         viewModel.passwordConfirmError.assertValue { it == null }
@@ -59,7 +45,7 @@ class RegistrationViewModelTest {
     }
 
     @Test
-    fun testAllValid() {
+    fun `test that allValid is true iff all fields are valid`() {
 
         viewModel.allValid.assertValue { !it }
 
@@ -77,16 +63,4 @@ class RegistrationViewModelTest {
         viewModel.email.value = "bademail"
         viewModel.allValid.assertValue { !it }
     }
-
-//    @Test
-//    fun testApiBad() = dispatcher.runBlockingTest {
-//        viewModel.email.value = "good@a.b"
-//        viewModel.password.value = "password"
-//        viewModel.passwordConfirm.value = "password"
-//        val res: LiveData<Resource<User>>? = viewModel.tryRegister()
-//        print("res ${res!!.value}")
-////        assert(User::class.isInstance(res?.data))
-////        assert((res?.data as User).id == 1)
-//
-//    }
 }

@@ -7,5 +7,8 @@ import com.jacobgb24.healthhistory.api.ApiBuilder
 import com.jacobgb24.healthhistory.api.ApiInterface
 import dagger.hilt.android.HiltAndroidApp
 
+/**
+ * Necessary for Hilt
+ */
 @HiltAndroidApp
 class BaseApplication : Application()
