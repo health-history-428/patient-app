@@ -7,11 +7,14 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.net.CookieHandler
 import java.net.CookieManager
 import java.util.concurrent.TimeUnit
 
 object ApiBuilder {
     private var api: ApiInterface? = null
+
+    private val cookieManager = CookieManager()
 
     private val client: OkHttpClient
         get() {
@@ -21,7 +24,7 @@ object ApiBuilder {
 
             return OkHttpClient.Builder()
                 .addInterceptor(interceptor)
-                .cookieJar(JavaNetCookieJar(CookieManager()))
+                .cookieJar(JavaNetCookieJar(cookieManager))
                 .connectTimeout(5, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .writeTimeout(10, TimeUnit.SECONDS)
@@ -50,6 +53,10 @@ object ApiBuilder {
 
     fun resetUrl(context: Context) {
         api = createInstance(context)
+    }
+
+    fun clearCookies() {
+        cookieManager.cookieStore.removeAll()
     }
 
     fun getApi(context: Context): ApiInterface {

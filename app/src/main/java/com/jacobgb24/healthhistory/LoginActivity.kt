@@ -31,6 +31,13 @@ class LoginActivity : AppCompatActivity() {
         else {
             setFragment(RegistrationFragment())
         }
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // clear cookies so session is reset
+        ApiBuilder.clearCookies()
     }
 
     fun setFragment(frag: Fragment) {
