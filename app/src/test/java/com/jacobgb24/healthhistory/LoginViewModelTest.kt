@@ -5,10 +5,9 @@ import androidx.test.core.app.ApplicationProvider
 import com.jacobgb24.healthhistory.api.MockApi
 import com.jacobgb24.healthhistory.viewmodels.LoginViewModel
 import kotlinx.coroutines.Dispatchers
-import org.junit.Test
-
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config

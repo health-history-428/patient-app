@@ -1,16 +1,14 @@
 package com.jacobgb24.healthhistory.views
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.jacobgb24.healthhistory.R
 import com.jacobgb24.healthhistory.databinding.FragmentPastVisitsBinding
-import com.jacobgb24.healthhistory.databinding.FragmentPersonalInfoBinding
-import com.jacobgb24.healthhistory.viewmodels.InfoViewModel
 import com.jacobgb24.healthhistory.viewmodels.VisitsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

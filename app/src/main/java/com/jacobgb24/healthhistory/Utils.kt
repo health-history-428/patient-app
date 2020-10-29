@@ -1,7 +1,9 @@
 package com.jacobgb24.healthhistory
 
-import android.content.Context
 import android.util.Log
+import android.view.KeyEvent
+import android.view.KeyEvent.ACTION_DOWN
+import android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -34,4 +36,21 @@ fun <T,S> combineData(vararg data: LiveData<T>, func: () -> S): MediatorLiveData
  */
 fun quickLog(msg: String) {
     Log.e(Throwable().stackTrace[1].className.split(".").last(), msg)
+}
+
+/**
+ * Run `action` when the user presses enter on this field.
+ * Also sets ime options which is a prereq for listening to events
+ */
+fun TextInputLayout.doOnEnter(action: () -> Unit) {
+    this.editText?.imeOptions = IME_ACTION_SEARCH
+    this.editText?.setOnKeyListener { _, keyCode, event ->
+        if (event.action == ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+            action.invoke()
+            true
+        }
+        else {
+            false
+        }
+    }
 }

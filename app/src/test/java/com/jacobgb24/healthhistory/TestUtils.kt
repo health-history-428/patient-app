@@ -1,14 +1,8 @@
 package com.jacobgb24.healthhistory
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert
-import retrofit2.HttpException
-import retrofit2.Response
-import kotlin.Exception
 import kotlin.reflect.KClass
 
 

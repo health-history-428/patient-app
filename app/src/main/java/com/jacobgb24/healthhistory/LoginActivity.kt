@@ -9,16 +9,19 @@ import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.jacobgb24.healthhistory.api.ApiBuilder
+import com.jacobgb24.healthhistory.api.ApiWrapper
+import com.jacobgb24.healthhistory.api.RetrofitBuilder
 import com.jacobgb24.healthhistory.views.LoginFragment
 import com.jacobgb24.healthhistory.views.RegistrationFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.dev_dialog.view.*
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class LoginActivity: AppCompatActivity() {
     private lateinit var sharedPrefs: SharedPreferences
+    @Inject lateinit var apiWrapper: ApiWrapper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         // clear cookies so session is reset
-        ApiBuilder.clearCookies()
+        RetrofitBuilder.clearCookies()
     }
 
     fun setFragment(frag: Fragment) {
@@ -68,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
                         .putBoolean("SERVER_MOCK", dialogView.dev_mock.isChecked)
                         .apply()
 
-                    ApiBuilder.resetUrl(applicationContext)
+                    apiWrapper.resetApi()
                     finish()
                     startActivity(intent)
                 }
