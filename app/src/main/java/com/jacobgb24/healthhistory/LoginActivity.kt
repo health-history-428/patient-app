@@ -10,8 +10,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.jacobgb24.healthhistory.api.ApiBuilder
-import com.jacobgb24.healthhistory.views.login.LoginFragment
-import com.jacobgb24.healthhistory.views.login.RegistrationFragment
+import com.jacobgb24.healthhistory.views.LoginFragment
+import com.jacobgb24.healthhistory.views.RegistrationFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.dev_dialog.view.*
 
@@ -59,12 +59,13 @@ class LoginActivity : AppCompatActivity() {
 
                 dialogView.dev_ip.setText(sharedPrefs.getString("SERVER_IP", "10.0.2.2"))
                 dialogView.dev_port.setText(sharedPrefs.getInt("SERVER_PORT", 8000).toString())
+                dialogView.dev_mock.isChecked = sharedPrefs.getBoolean("SERVER_MOCK", false)
 
                 dialogView.dev_save.setOnClickListener {
                     sharedPrefs.edit()
                         .putString("SERVER_IP", dialogView.dev_ip.text.toString())
                         .putInt("SERVER_PORT", dialogView.dev_port.text.toString().toInt())
-//                        .putBoolean("SERVER_MOCK", dialogView.dev_mock.isChecked)
+                        .putBoolean("SERVER_MOCK", dialogView.dev_mock.isChecked)
                         .apply()
 
                     ApiBuilder.resetUrl(applicationContext)

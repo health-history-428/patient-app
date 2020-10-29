@@ -1,4 +1,4 @@
-package com.jacobgb24.healthhistory.views.login
+package com.jacobgb24.healthhistory.views
 
 import android.content.Context
 import android.content.Intent

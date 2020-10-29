@@ -2,6 +2,7 @@ package com.jacobgb24.healthhistory
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
+import com.jacobgb24.healthhistory.api.MockApi
 import com.jacobgb24.healthhistory.viewmodels.LoginViewModel
 import kotlinx.coroutines.Dispatchers
 import org.junit.Test

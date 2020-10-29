@@ -1,6 +1,5 @@
-package com.jacobgb24.healthhistory
+package com.jacobgb24.healthhistory.api
 
-import com.jacobgb24.healthhistory.api.ApiInterface
 import com.jacobgb24.healthhistory.model.User
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -8,13 +7,16 @@ import retrofit2.HttpException
 import retrofit2.Response
 
 /**
- * This is currently unused
+ * A mock API useful for testing. This can be set in the dev menu on the login page
  */
 class MockApi: ApiInterface {
 
-    private inline fun <reified T> createError(err: String): HttpException {
+    /**
+     * Helpful function for creating an exception like what the real server produces
+     */
+    private inline fun <reified T> createError(err: String, code: Int = 400): HttpException {
         throw HttpException(Response.error<T>(
-            400,
+            code,
             "{\"error\":[\"${err}\"]}".toResponseBody("application/json".toMediaTypeOrNull())
         ))
     }

@@ -42,17 +42,14 @@ object ApiBuilder {
     }
 
 
-    private fun createInstance(context: Context): ApiInterface {
-        val sharedPreferences = context.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+    private fun createInstance(ip: String, port: Int): ApiInterface {
 
-        return getRetrofit(
-            sharedPreferences.getString("SERVER_IP", "10.0.2.2") ?: "",
-            sharedPreferences.getInt("SERVER_PORT", 8000))
-            .create(ApiInterface::class.java)
+        return getRetrofit(ip, port).create(ApiInterface::class.java)
     }
 
     fun resetUrl(context: Context) {
-        api = createInstance(context)
+        api = null
+        getApi(context)
     }
 
     fun clearCookies() {
@@ -60,8 +57,12 @@ object ApiBuilder {
     }
 
     fun getApi(context: Context): ApiInterface {
+        val sharedPreferences = context.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+        val useMock = sharedPreferences.getBoolean("SERVER_MOCK", false)
+        val ipStr = sharedPreferences.getString("SERVER_IP", "10.0.2.2") ?: ""
+        val portInt = sharedPreferences.getInt("SERVER_PORT", 8000)
         if (api == null) {
-            return createInstance(context)
+            return if (useMock) MockApi() else createInstance(ipStr, portInt)
         }
         return api!!
     }

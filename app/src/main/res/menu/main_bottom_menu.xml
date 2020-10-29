@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/main_info_item"
+        android:enabled="true"
+        android:title="Personal Info"
+        android:icon="@drawable/ic_person"/>
+    <item
+        android:id="@+id/main_visits_item"
+        android:enabled="true"
+        android:title="Past Visits"
+        android:icon="@drawable/ic_history"/>
+
+</menu>
