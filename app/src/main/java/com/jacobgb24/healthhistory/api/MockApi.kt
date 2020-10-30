@@ -1,11 +1,14 @@
 package com.jacobgb24.healthhistory.api
 
+import com.jacobgb24.healthhistory.model.Address
 import com.jacobgb24.healthhistory.model.Insurance
+import com.jacobgb24.healthhistory.model.PatientInfo
 import com.jacobgb24.healthhistory.model.User
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
+import java.util.*
 
 /**
  * A mock API useful for testing. This can be set in the dev menu on the login page
@@ -36,7 +39,14 @@ class MockApi: ApiInterface {
         return User(2, 2, "register-mock@api.com")    }
 
     override suspend fun getInsurance(): Insurance {
-        TODO("Not yet implemented")
+        return Insurance(User(3, 3, "insurance-mock@api.com"),
+        "Real Insurance Co.", "12345678",
+            "Doe", "John",
+            Calendar.getInstance().time, Calendar.getInstance().time,
+            "876554321", "Smith", "Joe",
+            "Real Company Ltd.",
+            Address("0 N 0 E", "", "Provo", "UT", "84606")
+        )
     }
 
     override suspend fun createInsurance(insurance: Insurance): Insurance {
@@ -44,6 +54,18 @@ class MockApi: ApiInterface {
     }
 
     override suspend fun updateInsurance(insurance: Insurance): Insurance {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getPatientInfo(): PatientInfo {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun createPatientInfo(info: PatientInfo): PatientInfo {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun updatePatientInfo(info: PatientInfo): PatientInfo {
         TODO("Not yet implemented")
     }
 

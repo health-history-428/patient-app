@@ -2,6 +2,7 @@ package com.jacobgb24.healthhistory.api
 
 import android.content.Context
 import com.jacobgb24.healthhistory.model.Insurance
+import com.jacobgb24.healthhistory.model.PatientInfo
 import com.jacobgb24.healthhistory.model.User
 import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.HttpException
@@ -45,6 +46,20 @@ class ApiWrapper @Inject constructor(@ApplicationContext val context: Context) {
         } catch (e: HttpException) {
             if (e.code() == 404) {
                 return api.createInsurance(Insurance())
+            }
+        }
+        return null
+    }
+
+    /**
+     * Get the insurance if we can. If it doesn't exist create an empty one and try to return that
+     */
+    suspend fun getPatientInfo(): PatientInfo? {
+        try {
+            return api.getPatientInfo()
+        } catch (e: HttpException) {
+            if (e.code() == 404) {
+                return api.createPatientInfo(PatientInfo())
             }
         }
         return null

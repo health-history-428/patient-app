@@ -1,6 +1,7 @@
 package com.jacobgb24.healthhistory.api
 
 import com.jacobgb24.healthhistory.model.Insurance
+import com.jacobgb24.healthhistory.model.PatientInfo
 import com.jacobgb24.healthhistory.model.User
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -24,10 +25,15 @@ interface ApiInterface {
 
     @GET("insurance")
     suspend fun getInsurance(): Insurance
-
     @POST("insurance")
     suspend fun createInsurance(insurance: Insurance): Insurance
-
     @PUT("insurance")
     suspend fun updateInsurance(insurance: Insurance): Insurance
+
+    @GET("patient_information")
+    suspend fun getPatientInfo(): PatientInfo
+    @POST("patient_information")
+    suspend fun createPatientInfo(info: PatientInfo): PatientInfo
+    @PUT("patient_information")
+    suspend fun updatePatientInfo(info: PatientInfo): PatientInfo
 }

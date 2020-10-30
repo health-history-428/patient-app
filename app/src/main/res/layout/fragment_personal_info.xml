@@ -6,19 +6,40 @@
             name="viewmodel"
             type="com.jacobgb24.healthhistory.viewmodels.InfoViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="@dimen/fragment_horizontal_margin"
-        android:paddingTop="@dimen/fragment_vertical_margin"
-        android:paddingRight="@dimen/fragment_horizontal_margin">
+        android:paddingTop="8dp"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.jacobgb24.healthhistory.ui_components.InfoHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:headerTitle="Personal Info"
+                app:headerIcon="@drawable/ic_person"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TODO"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="TEST INFO"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.jacobgb24.healthhistory.ui_components.InfoHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:headerTitle="Insurance"
+                app:headerIcon="@drawable/ic_card"/>
+
+        </LinearLayout>
+
+
+
+
+
+
+    </ScrollView>
 </layout>
