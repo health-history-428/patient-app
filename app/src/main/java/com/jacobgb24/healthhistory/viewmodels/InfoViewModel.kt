@@ -1,6 +1,7 @@
 package com.jacobgb24.healthhistory.viewmodels
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
@@ -8,6 +9,8 @@ import com.jacobgb24.healthhistory.api.ApiWrapper
 import com.jacobgb24.healthhistory.model.Address
 import com.jacobgb24.healthhistory.model.Insurance
 import com.jacobgb24.healthhistory.model.PatientInfo
+import com.jacobgb24.healthhistory.quickLog
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 class InfoViewModel @ViewModelInject constructor(
@@ -15,13 +18,12 @@ class InfoViewModel @ViewModelInject constructor(
     dispatcher: CoroutineContext
 ) : ViewModel() {
 
-    val patientInfo: MutableLiveData<PatientInfo?> = MutableLiveData(null)
-    val insurance: MutableLiveData<Insurance?> = MutableLiveData(null)
-
-    init {
-        liveData<Any>(dispatcher) {
-            insurance.value = api.getInsurance()
-            patientInfo.value = api.getPatientInfo()
-        }
+    val patientInfo: LiveData<PatientInfo?> = liveData(dispatcher) {
+        emit(api.getPatientInfo())
     }
+
+    val insurance: LiveData<Insurance> = liveData(dispatcher) {
+        api.getInsurance()
+    }
+
 }

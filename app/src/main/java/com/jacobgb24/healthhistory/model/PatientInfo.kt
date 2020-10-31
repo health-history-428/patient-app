@@ -1,7 +1,7 @@
 package com.jacobgb24.healthhistory.model
 
 data class PatientInfo(
-    val patient_id: User = User(),
+//    val patient_id: User = User(),
     val age: Int = -1,
     val height: String = "",
     val gender: String = "",

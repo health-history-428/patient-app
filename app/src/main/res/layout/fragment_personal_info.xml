@@ -20,10 +20,11 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:headerTitle="Personal Info"
                 app:headerIcon="@drawable/ic_person"/>
-            <TextView
+            <com.jacobgb24.healthhistory.ui_components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TODO"/>
+                app:itemKey="Height:"
+                app:itemVal='@{viewmodel.patientInfo.height ?? ""}'/>
 
 
 

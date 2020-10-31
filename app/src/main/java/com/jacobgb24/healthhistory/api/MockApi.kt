@@ -58,7 +58,9 @@ class MockApi: ApiInterface {
     }
 
     override suspend fun getPatientInfo(): PatientInfo {
-        TODO("Not yet implemented")
+        return PatientInfo(22, "6'3\"","male",
+            Address("0 N 0 E", "", "Provo", "UT", "84606"),
+        listOf("Pollen", "Air"), emptyList(), listOf("Appendix Removal"), emptyList())
     }
 
     override suspend fun createPatientInfo(info: PatientInfo): PatientInfo {

@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.jacobgb24.healthhistory.R
 import com.jacobgb24.healthhistory.databinding.FragmentPersonalInfoBinding
+import com.jacobgb24.healthhistory.quickLog
 import com.jacobgb24.healthhistory.viewmodels.InfoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +26,9 @@ class InfoFragment: Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = model
 
-
+        model.patientInfo.observe(viewLifecycleOwner, Observer {
+            quickLog("info updated: $it")
+        })
 
         return binding.root
     }
