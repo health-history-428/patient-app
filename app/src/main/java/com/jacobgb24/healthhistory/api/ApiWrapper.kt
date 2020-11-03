@@ -1,6 +1,7 @@
 package com.jacobgb24.healthhistory.api
 
 import android.content.Context
+import com.jacobgb24.healthhistory.model.Contact
 import com.jacobgb24.healthhistory.model.Insurance
 import com.jacobgb24.healthhistory.model.PatientInfo
 import com.jacobgb24.healthhistory.model.User
@@ -38,31 +39,33 @@ class ApiWrapper @Inject constructor(@ApplicationContext val context: Context) {
     }
 
     /**
-     * Get the insurance if we can. If it doesn't exist create an empty one and try to return that
+     * Get the insurance if we can. If it doesn't exist create an empty one and  return that
      */
-    suspend fun getInsurance(): Insurance? {
+    suspend fun getInsurance(): Insurance {
         try {
             return api.getInsurance()
-        } catch (e: HttpException) {
-            if (e.code() == 404) {
-                return api.createInsurance(Insurance())
-            }
-        }
-        return null
+        } catch (ignored: HttpException) {}
+        return Insurance()
     }
 
     /**
-     * Get the insurance if we can. If it doesn't exist create an empty one and try to return that
+     * Get the patient info if we can. If it doesn't exist create an empty one and try to return that
      */
-    suspend fun getPatientInfo(): PatientInfo? {
+    suspend fun getPatientInfo(): PatientInfo {
         try {
             return api.getPatientInfo()
-        } catch (e: HttpException) {
-            if (e.code() == 404) {
-                return api.createPatientInfo(PatientInfo())
-            }
-        }
-        return null
+        } catch (ignored: HttpException) {}
+        return PatientInfo()
+    }
+
+    /**
+     * Get the contact info if we can. If it doesn't exist create an empty one and try to return that
+     */
+    suspend fun getContactInfo(): Contact {
+        try {
+            return api.getContact()
+        } catch (ignored: HttpException) {}
+        return Contact()
     }
 
 }

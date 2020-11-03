@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.jacobgb24.healthhistory.api.ApiWrapper
 import com.jacobgb24.healthhistory.model.Address
+import com.jacobgb24.healthhistory.model.Contact
 import com.jacobgb24.healthhistory.model.Insurance
 import com.jacobgb24.healthhistory.model.PatientInfo
 import com.jacobgb24.healthhistory.quickLog
@@ -26,4 +27,7 @@ class InfoViewModel @ViewModelInject constructor(
         api.getInsurance()
     }
 
+    val contact: LiveData<Contact> = liveData(dispatcher) {
+        api.getContactInfo()
+    }
 }

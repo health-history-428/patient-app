@@ -3,7 +3,7 @@ package com.jacobgb24.healthhistory.model
 import java.util.*
 
 data class Insurance(
-    val user: User = User(),
+//    val user: User = User(),
     val insurance_company_name: String = "",
     val policy_number: String = "",
     val recipient_last_name: String = "",

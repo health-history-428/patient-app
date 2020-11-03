@@ -1,11 +1,12 @@
 package com.jacobgb24.healthhistory.model
 
+import java.util.*
+
 data class PatientInfo(
 //    val patient_id: User = User(),
-    val age: Int = -1,
+    val birthday: Date = Date(0),
     val height: String = "",
     val gender: String = "",
-    val address: Address = Address(),
     val allergies: List<String> = emptyList(),
     val medications: List<String> = emptyList(),
     val surgeries: List<String> = emptyList(),

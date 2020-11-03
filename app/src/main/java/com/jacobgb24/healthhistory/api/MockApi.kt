@@ -1,9 +1,6 @@
 package com.jacobgb24.healthhistory.api
 
-import com.jacobgb24.healthhistory.model.Address
-import com.jacobgb24.healthhistory.model.Insurance
-import com.jacobgb24.healthhistory.model.PatientInfo
-import com.jacobgb24.healthhistory.model.User
+import com.jacobgb24.healthhistory.model.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.HttpException
@@ -39,8 +36,7 @@ class MockApi: ApiInterface {
         return User(2, 2, "register-mock@api.com")    }
 
     override suspend fun getInsurance(): Insurance {
-        return Insurance(User(3, 3, "insurance-mock@api.com"),
-        "Real Insurance Co.", "12345678",
+        return Insurance("Real Insurance Co.", "12345678",
             "Doe", "John",
             Calendar.getInstance().time, Calendar.getInstance().time,
             "876554321", "Smith", "Joe",
@@ -49,26 +45,28 @@ class MockApi: ApiInterface {
         )
     }
 
-    override suspend fun createInsurance(insurance: Insurance): Insurance {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun updateInsurance(insurance: Insurance): Insurance {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getPatientInfo(): PatientInfo {
-        return PatientInfo(22, "6'3\"","male",
-            Address("0 N 0 E", "", "Provo", "UT", "84606"),
-        listOf("Pollen", "Air"), emptyList(), listOf("Appendix Removal"), emptyList())
-    }
 
-    override suspend fun createPatientInfo(info: PatientInfo): PatientInfo {
-        TODO("Not yet implemented")
+
+    override suspend fun getPatientInfo(): PatientInfo {
+        return PatientInfo(Calendar.getInstance().time, "6'3\"","male",
+        listOf("Pollen", "Air"), emptyList(), listOf("Appendix Removal"), emptyList(), emptyList())
     }
 
     override suspend fun updatePatientInfo(info: PatientInfo): PatientInfo {
         TODO("Not yet implemented")
     }
+
+    override suspend fun getContact(): Contact {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun updateContact(contact: Contact): Contact {
+        TODO("Not yet implemented")
+    }
+
 
 }
