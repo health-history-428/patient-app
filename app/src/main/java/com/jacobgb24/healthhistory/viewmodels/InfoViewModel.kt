@@ -2,32 +2,42 @@ package com.jacobgb24.healthhistory.viewmodels
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.jacobgb24.healthhistory.api.ApiWrapper
-import com.jacobgb24.healthhistory.model.Address
+import com.jacobgb24.healthhistory.api.ApiInterface
+import com.jacobgb24.healthhistory.api.Resource
+import com.jacobgb24.healthhistory.getApiError
 import com.jacobgb24.healthhistory.model.Contact
 import com.jacobgb24.healthhistory.model.Insurance
 import com.jacobgb24.healthhistory.model.PatientInfo
-import com.jacobgb24.healthhistory.quickLog
-import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 class InfoViewModel @ViewModelInject constructor(
-    private var api: ApiWrapper,
-    dispatcher: CoroutineContext
+    private var api: ApiInterface,
+    private val dispatcher: CoroutineContext
 ) : ViewModel() {
 
-    val patientInfo: LiveData<PatientInfo?> = liveData(dispatcher) {
-        emit(api.getPatientInfo())
-    }
+    val patientInfo: LiveData<Resource<PatientInfo>> = getData(api::getPatientInfo, PatientInfo())
+    val insurance: LiveData<Resource<Insurance>> = getData(api::getInsurance, Insurance())
+    val contact: LiveData<Resource<Contact>> = getData(api::getContact, Contact())
 
-    val insurance: LiveData<Insurance> = liveData(dispatcher) {
-        api.getInsurance()
-    }
 
-    val contact: LiveData<Contact> = liveData(dispatcher) {
-        api.getContactInfo()
+    /**
+     * Gets the data using `apiCall` and if the backend returns an error uses `defaultInstance`.
+     */
+    private fun <T> getData(apiCall: suspend () -> T, defaultInstance: T):
+            LiveData<Resource<T>> = liveData(dispatcher) {
+        emit(Resource.loading())
+        try {
+            emit(Resource.success(apiCall.invoke()))
+        } catch (e: Exception) {
+            if (e is HttpException && e.code() == 404) {
+                // user doesn't have existing data, so we'll return an empty one successfully
+                emit(Resource.success(defaultInstance))
+            }
+            emit(Resource.error(defaultInstance, e.getApiError()))
+        }
     }
 }

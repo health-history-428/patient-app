@@ -4,7 +4,7 @@ import java.util.*
 
 data class PatientInfo(
 //    val patient_id: User = User(),
-    val birthday: Date = Date(0),
+    val birthday: Date = Calendar.getInstance().time,
     val height: String = "",
     val gender: String = "",
     val allergies: List<String> = emptyList(),

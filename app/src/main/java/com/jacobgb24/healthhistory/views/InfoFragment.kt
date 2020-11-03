@@ -13,6 +13,8 @@ import com.jacobgb24.healthhistory.databinding.FragmentPersonalInfoBinding
 import com.jacobgb24.healthhistory.quickLog
 import com.jacobgb24.healthhistory.viewmodels.InfoViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.DateFormat
+import java.text.DateFormat.MEDIUM
 
 @AndroidEntryPoint
 class InfoFragment: Fragment() {

@@ -49,8 +49,6 @@ class MockApi: ApiInterface {
         TODO("Not yet implemented")
     }
 
-
-
     override suspend fun getPatientInfo(): PatientInfo {
         return PatientInfo(Calendar.getInstance().time, "6'3\"","male",
         listOf("Pollen", "Air"), emptyList(), listOf("Appendix Removal"), emptyList(), emptyList())
@@ -61,7 +59,10 @@ class MockApi: ApiInterface {
     }
 
     override suspend fun getContact(): Contact {
-        TODO("Not yet implemented")
+        return Contact(User(3, 3, "contact-mock@api.com"),
+            Address("0 N 0 E", "", "Provo", "UT", "84606"),
+            "(000) 123-4567", "John Doe"
+        )
     }
 
     override suspend fun updateContact(contact: Contact): Contact {

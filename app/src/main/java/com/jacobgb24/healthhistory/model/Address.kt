@@ -5,5 +5,9 @@ data class Address(
     val address_2: String = "",
     val city: String = "",
     val state: String = "",
-    val zip_code: String =""
-)
+    val zip_code: String ="",
+) {
+    override fun toString(): String {
+        return "$address_1\n$address_2${if (address_2.isNotEmpty()) "\n" else ""}$city, $state, $zip_code"
+    }
+}

@@ -1,7 +1,8 @@
 package di
 
 import android.content.Context
-import com.jacobgb24.healthhistory.api.ApiWrapper
+import com.jacobgb24.healthhistory.api.ApiBuilder
+import com.jacobgb24.healthhistory.api.ApiInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,12 +20,11 @@ import kotlin.coroutines.CoroutineContext
 class AppModule {
 
     @Provides
-    @Singleton
-    fun api(@ApplicationContext context: Context): ApiWrapper {
-        return ApiWrapper(context)
+    fun api(@ApplicationContext context: Context): ApiInterface {
+        return ApiBuilder.getApi(context)
     }
 
     @Provides
     @Singleton
-    fun couroutineDispatcher(): CoroutineContext = Dispatchers.IO
+    fun coroutineDispatcher(): CoroutineContext = Dispatchers.IO
 }
