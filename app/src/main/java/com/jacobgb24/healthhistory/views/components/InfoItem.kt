@@ -1,13 +1,11 @@
-package com.jacobgb24.healthhistory.ui_components
+package com.jacobgb24.healthhistory.views.components
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.jacobgb24.healthhistory.R
 import com.jacobgb24.healthhistory.quickLog
-import kotlinx.android.synthetic.main.component_info_header.view.*
 import kotlinx.android.synthetic.main.component_info_item.view.*
 
 /**

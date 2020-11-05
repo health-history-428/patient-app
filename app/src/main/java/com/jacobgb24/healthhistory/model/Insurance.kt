@@ -1,7 +1,10 @@
 package com.jacobgb24.healthhistory.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
+@Parcelize
 data class Insurance(
 //    val user: User = User(),
     val insurance_company_name: String = "",
@@ -15,4 +18,4 @@ data class Insurance(
     val insured_first_name: String = "",
     val employer_name: String = "",
     val employer_address: Address = Address()
-)
+): Parcelable

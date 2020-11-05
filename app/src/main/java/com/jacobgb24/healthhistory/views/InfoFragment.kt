@@ -5,16 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
+import com.jacobgb24.healthhistory.EditDialogType
 import com.jacobgb24.healthhistory.R
 import com.jacobgb24.healthhistory.databinding.FragmentPersonalInfoBinding
-import com.jacobgb24.healthhistory.quickLog
+import com.jacobgb24.healthhistory.model.Contact
+import com.jacobgb24.healthhistory.model.Insurance
+import com.jacobgb24.healthhistory.model.PatientInfo
 import com.jacobgb24.healthhistory.viewmodels.InfoViewModel
+import com.jacobgb24.healthhistory.views.editdialogs.ContactEditDialog
+import com.jacobgb24.healthhistory.views.editdialogs.HealthInfoEditDialog
+import com.jacobgb24.healthhistory.views.editdialogs.InsuranceEditDialog
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.DateFormat
-import java.text.DateFormat.MEDIUM
 
 @AndroidEntryPoint
 class InfoFragment: Fragment() {
@@ -28,11 +33,42 @@ class InfoFragment: Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = model
 
-        model.patientInfo.observe(viewLifecycleOwner, Observer {
-            quickLog("info updated: $it")
-        })
+        binding.infoContactHeader.setEditClick { showEditDialog(EditDialogType.CONTACT) }
+        binding.infoHealthHeader.setEditClick { showEditDialog(EditDialogType.HEALTH) }
+        binding.infoInsuranceHeader.setEditClick { showEditDialog(EditDialogType.INSURANCE) }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    private fun showEditDialog(type: EditDialogType) {
+        val bundle = Bundle()
+        val fragment: DialogFragment
+        fragment = when(type) {
+            EditDialogType.CONTACT -> {
+                bundle.putParcelable("OBJ", model.contact.value?.data ?: Contact())
+                ContactEditDialog()
+
+            }
+            EditDialogType.HEALTH -> {
+                bundle.putParcelable("OBJ", model.patientInfo.value?.data ?: PatientInfo())
+                HealthInfoEditDialog()
+            }
+            EditDialogType.INSURANCE -> {
+                bundle.putParcelable("OBJ", model.insurance.value?.data ?: Insurance())
+                InsuranceEditDialog()
+            }
+        }
+        fragment.arguments = bundle
+
+        parentFragmentManager.beginTransaction()
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            .add(android.R.id.content, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
 }

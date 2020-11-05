@@ -95,3 +95,9 @@ fun <T> listToString(l: List<T>?): String {
 fun formatDate(date: Date?): String {
     return if (date != null) DateFormat.getDateInstance(MEDIUM).format(date) else ""
 }
+
+enum class EditDialogType {
+    CONTACT,
+    HEALTH,
+    INSURANCE
+}

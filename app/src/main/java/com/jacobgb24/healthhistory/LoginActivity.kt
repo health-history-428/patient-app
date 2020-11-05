@@ -13,6 +13,7 @@ import com.jacobgb24.healthhistory.api.ApiBuilder
 import com.jacobgb24.healthhistory.views.LoginFragment
 import com.jacobgb24.healthhistory.views.RegistrationFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.dev_dialog.view.*
 
 
@@ -22,6 +23,8 @@ class LoginActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
+        setSupportActionBar(toolbar)
 
         // if we have a saved email start on the login screen
         sharedPrefs = getSharedPreferences("PREFS", Context.MODE_PRIVATE)
@@ -42,7 +45,7 @@ class LoginActivity: AppCompatActivity() {
 
     fun setFragment(frag: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(android.R.id.content, frag)
+            .replace(R.id.main_container, frag)
             .commit()
     }
 

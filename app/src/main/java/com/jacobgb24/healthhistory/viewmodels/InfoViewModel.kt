@@ -4,12 +4,18 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.jacobgb24.healthhistory.api.ApiInterface
 import com.jacobgb24.healthhistory.api.Resource
 import com.jacobgb24.healthhistory.getApiError
 import com.jacobgb24.healthhistory.model.Contact
 import com.jacobgb24.healthhistory.model.Insurance
 import com.jacobgb24.healthhistory.model.PatientInfo
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
@@ -23,6 +29,7 @@ class InfoViewModel @ViewModelInject constructor(
     val insurance: LiveData<Resource<Insurance>> = getData(api::getInsurance, Insurance())
     val contact: LiveData<Resource<Contact>> = getData(api::getContact, Contact())
 
+    //TODO: some way to update these
 
     /**
      * Gets the data using `apiCall` and if the backend returns an error uses `defaultInstance`.
@@ -39,5 +46,7 @@ class InfoViewModel @ViewModelInject constructor(
             }
             emit(Resource.error(defaultInstance, e.getApiError()))
         }
+
     }
+
 }

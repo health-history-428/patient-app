@@ -18,7 +18,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_height="wrap_content"
-            android:text="TEST VISITS"/>
+            android:text="TODO, Please don't look :)"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

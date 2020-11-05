@@ -16,125 +16,117 @@
             android:orientation="vertical">
 
 <!-- Contact            -->
-            <com.jacobgb24.healthhistory.ui_components.InfoHeader
+            <com.jacobgb24.healthhistory.views.components.InfoHeader
+                android:id="@+id/info_contact_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:headerTitle="Contact Info"
                 app:headerIcon="@drawable/ic_person"/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Name:"
                 app:itemVal='@{viewmodel.contact.data.name ?? ""}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Email:"
                 app:itemVal='@{viewmodel.contact.data.user.email ?? ""}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Phone:"
                 app:itemVal='@{viewmodel.contact.data.phone ?? ""}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Address:"
                 app:itemVal='@{viewmodel.contact.data.address.toString() ?? ""}'/>
 
 <!-- Health            -->
-            <com.jacobgb24.healthhistory.ui_components.InfoHeader
+            <com.jacobgb24.healthhistory.views.components.InfoHeader
+                android:id="@+id/info_health_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:headerTitle="Health Info"
                 app:headerIcon="@drawable/ic_heart"/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Birthday:"
                 app:itemVal='@{Utils.formatDate(viewmodel.patientInfo.data.birthday)}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Height:"
                 app:itemVal='@{viewmodel.patientInfo.data.height.toString() ?? ""}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Gender:"
                 app:itemVal='@{viewmodel.patientInfo.data.gender ?? ""}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Allergies:"
                 app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.allergies)}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Medications:"
                 app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.medications)}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Surgeries:"
                 app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.surgeries)}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Existing Conditions:"
                 app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.existing_conditions)}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Family Conditions:"
                 app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.family_conditions)}'/>
 
 <!-- Insurance            -->
-<!--                val insurance_company_name: String = "",
-    val policy_number: String = "",
-    val recipient_last_name: String = "",
-    val recipient_first_name: String = "",
-    val policy_begin_date: Date = Calendar.getInstance().time,
-    val policy_end_date: Date = Calendar.getInstance().time,
-    val group_number: String = "",
-    val insured_last_name: String = "",
-    val insured_first_name: String = "",
-    val employer_name: String = "",
-    val employer_address: Address = Address()-->
-            <com.jacobgb24.healthhistory.ui_components.InfoHeader
+            <com.jacobgb24.healthhistory.views.components.InfoHeader
+                android:id="@+id/info_insurance_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
                 app:headerTitle="Insurance"
                 app:headerIcon="@drawable/ic_card"/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Insurer:"
                 app:itemVal='@{viewmodel.insurance.data.insurance_company_name ?? ""}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Subscriber Name:"
                 app:itemVal='@{(viewmodel.insurance.data.recipient_last_name + `, ` + viewmodel.insurance.data.recipient_first_name) ?? ""}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Policy Begin Date:"
                 app:itemVal='@{Utils.formatDate(viewmodel.insurance.data.policy_begin_date)}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Policy End Date:"
                 app:itemVal='@{Utils.formatDate(viewmodel.insurance.data.policy_end_date)}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Employer Name:"
                 app:itemVal='@{viewmodel.insurance.data.employer_name ?? ""}'/>
-            <com.jacobgb24.healthhistory.ui_components.InfoItem
+            <com.jacobgb24.healthhistory.views.components.InfoItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:itemKey="Employer Address:"
