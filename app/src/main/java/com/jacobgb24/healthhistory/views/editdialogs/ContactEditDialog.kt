@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.DialogFragment
 import com.jacobgb24.healthhistory.R
+import com.jacobgb24.healthhistory.views.InfoFragment
 
 
 class ContactEditDialog : DialogFragment() {
@@ -35,6 +36,7 @@ class ContactEditDialog : DialogFragment() {
             R.id.action_save -> {
                 //todo api call
                 dismiss()
+                (targetFragment as? InfoFragment)?.refreshModel()
             }
             else -> {
                 dismiss()

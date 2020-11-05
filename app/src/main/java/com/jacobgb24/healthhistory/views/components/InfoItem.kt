@@ -29,7 +29,7 @@ class InfoItem @JvmOverloads constructor(
     }
 
     fun setItemVal(value: String) {
-        quickLog("Set val called $value")
+//        quickLog("Set val called $value")
         info_item_val.text = value
     }
 }

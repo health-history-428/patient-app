@@ -15,6 +15,7 @@ import com.jacobgb24.healthhistory.databinding.FragmentPersonalInfoBinding
 import com.jacobgb24.healthhistory.model.Contact
 import com.jacobgb24.healthhistory.model.Insurance
 import com.jacobgb24.healthhistory.model.PatientInfo
+import com.jacobgb24.healthhistory.quickLog
 import com.jacobgb24.healthhistory.viewmodels.InfoViewModel
 import com.jacobgb24.healthhistory.views.editdialogs.ContactEditDialog
 import com.jacobgb24.healthhistory.views.editdialogs.HealthInfoEditDialog
@@ -40,9 +41,6 @@ class InfoFragment: Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
 
     private fun showEditDialog(type: EditDialogType) {
         val bundle = Bundle()
@@ -63,12 +61,19 @@ class InfoFragment: Fragment() {
             }
         }
         fragment.arguments = bundle
+        fragment.setTargetFragment(this, 1)
+
 
         parentFragmentManager.beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .add(android.R.id.content, fragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    fun refreshModel() {
+        quickLog("refresh called")
+        model.refresh()
     }
 
 }

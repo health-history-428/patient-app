@@ -60,7 +60,7 @@ class MockApi: ApiInterface {
 
     override suspend fun getContact(): Contact {
         return Contact(User(3, 3, "contact-mock@api.com"),
-            Address("0 N 0 E", "", "Provo", "UT", "84606"),
+            Address("0 N 0 E", "", "Provo", "UT", (0..99999).random().toString().padStart(5, '0')),
             "(000) 123-4567", "John Doe"
         )
     }
