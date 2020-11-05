@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.jacobgb24.healthhistory.api.ApiInterface
 import com.jacobgb24.healthhistory.api.Resource
+import com.jacobgb24.healthhistory.combineData
 import com.jacobgb24.healthhistory.getApiError
 import com.jacobgb24.healthhistory.model.Contact
 import com.jacobgb24.healthhistory.model.Insurance
@@ -22,6 +23,12 @@ class InfoViewModel @ViewModelInject constructor(
     val patientInfo: LiveData<Resource<PatientInfo>> = getData(api::getPatientInfo, PatientInfo())
     val insurance: LiveData<Resource<Insurance>> = getData(api::getInsurance, Insurance())
     val contact: LiveData<Resource<Contact>> = getData(api::getContact, Contact())
+
+    val isLoading = combineData(patientInfo, insurance, contact) {
+        patientInfo.value?.status == Resource.Status.LOADING ||
+                insurance.value?.status == Resource.Status.LOADING ||
+                contact.value?.status == Resource.Status.LOADING
+    }
 
     init {
         refresh()

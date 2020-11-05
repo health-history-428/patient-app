@@ -47,7 +47,7 @@ class LoginFragment: Fragment() {
 
         // login button handler
         binding.loginButt.setOnClickListener {
-            model.tryLogin().observe(viewLifecycleOwner, Observer {
+            model.tryLogin().observe(viewLifecycleOwner, {
                 it?.let { resource ->
                     when (resource.status) {
                         Resource.Status.SUCCESS -> {
@@ -57,7 +57,7 @@ class LoginFragment: Fragment() {
                             startActivity(Intent(activity, MainActivity::class.java))
                         }
                         Resource.Status.LOADING -> {
-                            binding.loginProgress.visibility = View.GONE
+                            binding.loginProgress.visibility = View.VISIBLE
                         }
                         Resource.Status.ERROR -> {
                             Toast.makeText(activity, resource.message, Toast.LENGTH_SHORT).show()

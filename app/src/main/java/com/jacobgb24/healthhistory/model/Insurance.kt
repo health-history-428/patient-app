@@ -6,16 +6,16 @@ import java.util.*
 
 @Parcelize
 data class Insurance(
-//    val user: User = User(),
-    val insurance_company_name: String = "",
-    val policy_number: String = "",
-    val recipient_last_name: String = "",
-    val recipient_first_name: String = "",
-    val policy_begin_date: Date = Calendar.getInstance().time,
-    val policy_end_date: Date = Calendar.getInstance().time,
-    val group_number: String = "",
-    val insured_last_name: String = "",
-    val insured_first_name: String = "",
-    val employer_name: String = "",
-    val employer_address: Address = Address()
+//    var user: User = User(),
+    var insurance_company_name: String = "",
+    var policy_number: String = "",
+    var recipient_last_name: String = "",
+    var recipient_first_name: String = "",
+    var policy_begin_date: Date = Calendar.getInstance().time,
+    var policy_end_date: Date = Calendar.getInstance().time,
+    var group_number: String = "",
+    var insured_last_name: String = "",
+    var insured_first_name: String = "",
+    var employer_name: String = "",
+    var employer_address: Address = Address()
 ): Parcelable

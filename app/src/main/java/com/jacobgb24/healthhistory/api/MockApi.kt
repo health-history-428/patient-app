@@ -1,6 +1,7 @@
 package com.jacobgb24.healthhistory.api
 
 import com.jacobgb24.healthhistory.model.*
+import kotlinx.coroutines.delay
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.HttpException
@@ -50,6 +51,7 @@ class MockApi: ApiInterface {
     }
 
     override suspend fun getPatientInfo(): PatientInfo {
+        delay(1000)
         return PatientInfo(Calendar.getInstance().time, "6'3\"","male",
         listOf("Pollen", "Air"), emptyList(), listOf("Appendix Removal"), emptyList(), emptyList())
     }
@@ -66,7 +68,8 @@ class MockApi: ApiInterface {
     }
 
     override suspend fun updateContact(contact: Contact): Contact {
-        TODO("Not yet implemented")
+        delay(1000)
+        return Contact()
     }
 
 

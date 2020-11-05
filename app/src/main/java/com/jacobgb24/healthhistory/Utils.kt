@@ -32,7 +32,7 @@ fun setErrorMessage(view: TextInputLayout, errorMessage: String?) {
  * Combines multiple LiveData objects. Will observe each and on change, set own value
  * to whatever `func` returns
  */
-fun <T,S> combineData(vararg data: LiveData<T>, func: () -> S): MediatorLiveData<S> {
+fun <S> combineData(vararg data: LiveData<*>, func: () -> S): MediatorLiveData<S> {
     return MediatorLiveData<S>().apply {
         for (d in data) {
             addSource(d) { value = func.invoke() }

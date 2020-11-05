@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <import type="com.jacobgb24.healthhistory.api.Resource.Status"/>
+        <import type="android.view.View"/>
         <import alias="Utils" type="com.jacobgb24.healthhistory.UtilsKt"/>
         <variable name="viewmodel" type="com.jacobgb24.healthhistory.viewmodels.InfoViewModel" />
     </data>
@@ -10,133 +13,227 @@
         android:layout_width="match_parent"
         android:paddingTop="8dp"
         android:layout_height="match_parent">
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-<!-- Contact            -->
-            <com.jacobgb24.healthhistory.views.components.InfoHeader
-                android:id="@+id/info_contact_header"
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminate="true"
+                android:id="@+id/info_progress"
+                android:visibility="@{viewmodel.isLoading ? View.VISIBLE : View.GONE}"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:headerTitle="Contact Info"
-                app:headerIcon="@drawable/ic_person"/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Name:"
-                app:itemVal='@{viewmodel.contact.data.name ?? ""}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Email:"
-                app:itemVal='@{viewmodel.contact.data.user.email ?? ""}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Phone:"
-                app:itemVal='@{viewmodel.contact.data.phone ?? ""}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Address:"
-                app:itemVal='@{viewmodel.contact.data.address.toString() ?? ""}'/>
+                android:orientation="vertical"
+                android:id="@+id/linearLayout">
 
-<!-- Health            -->
-            <com.jacobgb24.healthhistory.views.components.InfoHeader
-                android:id="@+id/info_health_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:headerTitle="Health Info"
-                app:headerIcon="@drawable/ic_heart"/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Birthday:"
-                app:itemVal='@{Utils.formatDate(viewmodel.patientInfo.data.birthday)}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Height:"
-                app:itemVal='@{viewmodel.patientInfo.data.height.toString() ?? ""}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Gender:"
-                app:itemVal='@{viewmodel.patientInfo.data.gender ?? ""}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Allergies:"
-                app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.allergies)}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Medications:"
-                app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.medications)}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Surgeries:"
-                app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.surgeries)}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Existing Conditions:"
-                app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.existing_conditions)}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Family Conditions:"
-                app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.family_conditions)}'/>
+                <!-- Contact            -->
+                <com.jacobgb24.healthhistory.views.components.InfoHeader
+                    android:id="@+id/info_contact_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:headerTitle="Contact Info"
+                    app:headerIcon="@drawable/ic_person"
+                    tools:layout_conversion_absoluteHeight="43dp"
+                    tools:layout_editor_absoluteY="8dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="411dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Name:"
+                    app:itemVal='@{viewmodel.contact.data.name ?? ""}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="51dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="67dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Email:"
+                    app:itemVal='@{viewmodel.contact.data.user.email ?? ""}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="72dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="65dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Phone:"
+                    app:itemVal='@{viewmodel.contact.data.phone ?? ""}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="94dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="71dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Address:"
+                    app:itemVal='@{viewmodel.contact.data.address.toString() ?? ""}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="116dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="85dp" />
 
-<!-- Insurance            -->
-            <com.jacobgb24.healthhistory.views.components.InfoHeader
-                android:id="@+id/info_insurance_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:headerTitle="Insurance"
-                app:headerIcon="@drawable/ic_card"/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Insurer:"
-                app:itemVal='@{viewmodel.insurance.data.insurance_company_name ?? ""}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Subscriber Name:"
-                app:itemVal='@{(viewmodel.insurance.data.recipient_last_name + `, ` + viewmodel.insurance.data.recipient_first_name) ?? ""}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Policy Begin Date:"
-                app:itemVal='@{Utils.formatDate(viewmodel.insurance.data.policy_begin_date)}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Policy End Date:"
-                app:itemVal='@{Utils.formatDate(viewmodel.insurance.data.policy_end_date)}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Employer Name:"
-                app:itemVal='@{viewmodel.insurance.data.employer_name ?? ""}'/>
-            <com.jacobgb24.healthhistory.views.components.InfoItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:itemKey="Employer Address:"
-                app:itemVal='@{viewmodel.insurance.data.employer_address.toString() ?? ""}'/>
-        </LinearLayout>
+                <!-- Health            -->
+                <com.jacobgb24.healthhistory.views.components.InfoHeader
+                    android:id="@+id/info_health_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:headerTitle="Health Info"
+                    app:headerIcon="@drawable/ic_heart"
+                    tools:layout_conversion_absoluteHeight="43dp"
+                    tools:layout_editor_absoluteY="138dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="411dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Birthday:"
+                    app:itemVal='@{Utils.formatDate(viewmodel.patientInfo.data.birthday)}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="180dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="86dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Height:"
+                    app:itemVal='@{viewmodel.patientInfo.data.height.toString() ?? ""}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="202dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="73dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Gender:"
+                    app:itemVal='@{viewmodel.patientInfo.data.gender ?? ""}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="224dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="77dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Allergies:"
+                    app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.allergies)}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="245dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="89dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Medications:"
+                    app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.medications)}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="267dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="114dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Surgeries:"
+                    app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.surgeries)}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="289dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="94dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Existing Conditions:"
+                    app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.existing_conditions)}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="310dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="165dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Family Conditions:"
+                    app:itemVal='@{Utils.listToString(viewmodel.patientInfo.data.family_conditions)}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="332dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="154dp" />
 
+                <!-- Insurance            -->
+                <com.jacobgb24.healthhistory.views.components.InfoHeader
+                    android:id="@+id/info_insurance_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:headerTitle="Insurance"
+                    app:headerIcon="@drawable/ic_card"
+                    tools:layout_conversion_absoluteHeight="43dp"
+                    tools:layout_editor_absoluteY="354dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="411dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Insurer:"
+                    app:itemVal='@{viewmodel.insurance.data.insurance_company_name ?? ""}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="397dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="76dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Subscriber Name:"
+                    app:itemVal='@{(viewmodel.insurance.data.recipient_last_name + `, ` + viewmodel.insurance.data.recipient_first_name) ?? ""}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="418dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="150dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Policy Begin Date:"
+                    app:itemVal='@{Utils.formatDate(viewmodel.insurance.data.policy_begin_date)}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="440dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="151dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Policy End Date:"
+                    app:itemVal='@{Utils.formatDate(viewmodel.insurance.data.policy_end_date)}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="462dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="137dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Employer Name:"
+                    app:itemVal='@{viewmodel.insurance.data.employer_name ?? ""}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="483dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="139dp" />
+                <com.jacobgb24.healthhistory.views.components.InfoItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:itemKey="Employer Address:"
+                    app:itemVal='@{viewmodel.insurance.data.employer_address.toString() ?? ""}'
+                    tools:layout_conversion_absoluteHeight="22dp"
+                    tools:layout_editor_absoluteY="505dp"
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_conversion_absoluteWidth="157dp" />
+            </LinearLayout>
 
-
-
-
+        </RelativeLayout>
 
     </ScrollView>
 </layout>
