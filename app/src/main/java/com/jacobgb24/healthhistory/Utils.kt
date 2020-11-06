@@ -7,8 +7,11 @@ import android.view.View
 import android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.JsonParseException
 import com.google.gson.JsonParser
@@ -19,6 +22,8 @@ import java.text.DateFormat.MEDIUM
 import java.util.*
 
 
+private val DATE_FORMATTER = DateFormat.getDateInstance(MEDIUM)
+
 /**
  * Allows DataBinding the errorText of a TextInputLayout
  */
@@ -26,7 +31,6 @@ import java.util.*
 fun setErrorMessage(view: TextInputLayout, errorMessage: String?) {
     view.error = errorMessage
 }
-
 
 /**
  * Combines multiple LiveData objects. Will observe each and on change, set own value
@@ -92,12 +96,22 @@ fun <T> listToString(l: List<T>?): String {
 /**
  * DataBinding helper function. Defines how to format a date for the UI
  */
-fun formatDate(date: Date?): String {
-    return if (date != null) DateFormat.getDateInstance(MEDIUM).format(date) else ""
+@InverseMethod("stringToDate")
+fun dateToString(date: Date?): String {
+    return if (date != null) DATE_FORMATTER.format(date) else ""
+}
+
+fun stringToDate(string: String): Date? {
+    return DATE_FORMATTER.parse(string)
 }
 
 enum class EditDialogType {
     CONTACT,
     HEALTH,
     INSURANCE
+}
+
+
+fun prepareEditTextForDate(editText: TextInputEditText, source: () -> Date?) {
+
 }

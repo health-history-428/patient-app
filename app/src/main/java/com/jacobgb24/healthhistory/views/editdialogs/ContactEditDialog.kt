@@ -57,8 +57,8 @@ class ContactEditDialog : DialogFragment() {
                         when (resource.status) {
                             Resource.Status.SUCCESS -> {
                                 progressBar.visibility = View.GONE
-                                dismiss()
                                 (targetFragment as? InfoFragment)?.refreshModel()
+                                dismiss()
                             }
                             Resource.Status.LOADING -> {
                                 progressBar.visibility = View.VISIBLE
