@@ -1,5 +1,7 @@
 package com.jacobgb24.healthhistory
 
+import android.app.DatePickerDialog
+import android.content.Context
 import android.util.Log
 import android.view.KeyEvent
 import android.view.KeyEvent.ACTION_DOWN
@@ -112,6 +114,31 @@ enum class EditDialogType {
 }
 
 
-fun prepareEditTextForDate(editText: TextInputEditText, source: () -> Date?) {
+/**
+ * Sets up this edittext to open a date picker on click.
+ * Converts date picker value from text value and back
+ */
+fun TextInputEditText.prepareForDate(context: Context) {
+    this.isLongClickable = false
+    this.isFocusable = false
 
+    this.setOnClickListener {
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+            val date = Calendar.getInstance()
+            date.set(year, month, dayOfMonth)
+            quickLog("$year, $month, $dayOfMonth")
+            this.setText(dateToString(date.time))
+
+        }
+        DATE_FORMATTER.parse(this.text.toString())?.let {
+            val cal = Calendar.getInstance()
+            cal.time = it
+
+            val datePickerDialog = DatePickerDialog(context, dateSetListener,
+                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
+
+            datePickerDialog.show()
+        }
+
+    }
 }

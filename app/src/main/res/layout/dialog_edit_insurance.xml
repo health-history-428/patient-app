@@ -2,12 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
+        <import
+            alias="Utils"
+            type="com.jacobgb24.healthhistory.UtilsKt" />
 
         <variable
             name="viewmodel"
-            type="com.jacobgb24.healthhistory.viewmodels.editdialogs.ContactEditViewModel" />
+            type="com.jacobgb24.healthhistory.viewmodels.editdialogs.InsuranceEditViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,8 +52,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appbar">
+            app:layout_constraintTop_toBottomOf="@id/appbar"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,121 +64,152 @@
                 android:showDividers="middle"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name">
+                    android:hint="Insurer">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
-                        android:text='@={viewmodel.contact.name}' />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/contact_email"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Email">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:text='@={viewmodel.contact.user.email}' />
+                        android:inputType="textCapWords"
+                        android:text='@={viewmodel.insurance.insurance_company_name}' />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Phone">
+                    android:hint="Subscriber Name">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="phone"
-                        android:text='@={viewmodel.contact.phone}' />
+                        android:inputType="text"
+                        android:text='TODO' />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Address">
+                    android:hint="Policy Begin Date">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_policy_begin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text='@={Utils.dateToString(viewmodel.insurance.policy_begin_date)}' />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Policy End Date">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_policy_end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text='@={Utils.dateToString(viewmodel.insurance.policy_end_date)}' />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Employer Name">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:text='@={viewmodel.insurance.employer_name}' />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Employer Address"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
                         android:inputType="textPostalAddress"
-                        android:text='@={viewmodel.contact.address.address_1}' />
+                        android:text='@={viewmodel.insurance.employer_address.address_1}'
+                        android:layout_height="wrap_content"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Address 2">
+                    android:hint="Address 2"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:inputType="textPostalAddress"
-                        android:text='@={viewmodel.contact.address.address_2}' />
+                        android:text='@={viewmodel.insurance.employer_address.address_2}'
+                        android:layout_height="wrap_content"
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:baselineAligned="false"
                     android:divider="@drawable/spacer"
                     android:orientation="horizontal"
-                    android:showDividers="middle">
+                    android:showDividers="middle"
+                    android:baselineAligned="false">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:hint="City">
+                        android:layout_height="wrap_content"
+                        android:hint="City"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:inputType="textCapWords"
-                            android:text='@={viewmodel.contact.address.city}' />
+                            android:text='@={viewmodel.insurance.employer_address.city}'
+                            android:layout_height="wrap_content"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="State">
+                        android:layout_height="wrap_content"
+                        android:hint="State"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:inputType="textCapCharacters"
                             android:maxLength="2"
-                            android:text='@={viewmodel.contact.address.state}' />
+                            android:text='@={viewmodel.insurance.employer_address.state}'
+                            android:layout_height="wrap_content"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:hint="Zip Code">
+                        android:layout_height="wrap_content"
+                        android:hint="Zip Code"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
                             android:inputType="number"
-                            android:text='@={viewmodel.contact.address.zip_code}' />
+                            android:text='@={viewmodel.insurance.employer_address.zip_code}'
+                            android:layout_height="wrap_content"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </LinearLayout>

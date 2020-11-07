@@ -47,7 +47,8 @@ class MockApi: ApiInterface {
     }
 
     override suspend fun updateInsurance(insurance: Insurance): Insurance {
-        TODO("Not yet implemented")
+        delay(1000)
+        return insurance
     }
 
     override suspend fun getPatientInfo(): PatientInfo {
@@ -57,7 +58,8 @@ class MockApi: ApiInterface {
     }
 
     override suspend fun updatePatientInfo(info: PatientInfo): PatientInfo {
-        TODO("Not yet implemented")
+        delay(1000)
+        return info
     }
 
     override suspend fun getContact(): Contact {
@@ -69,7 +71,7 @@ class MockApi: ApiInterface {
 
     override suspend fun updateContact(contact: Contact): Contact {
         delay(1000)
-        return Contact()
+        return contact
     }
 
 
