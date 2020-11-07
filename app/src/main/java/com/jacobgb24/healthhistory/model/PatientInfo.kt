@@ -10,9 +10,9 @@ data class PatientInfo(
     var birthday: Date = Calendar.getInstance().time,
     var height: String = "",
     var gender: String = "",
-    var allergies: List<String> = emptyList(),
-    var medications: List<String> = emptyList(),
-    var surgeries: List<String> = emptyList(),
-    var existing_conditions: List<String> = emptyList(),
-    var family_conditions: List<String> = emptyList()
+    var allergies: MutableList<String> = mutableListOf(),
+    var medications: MutableList<String> = mutableListOf(),
+    var surgeries: MutableList<String> = mutableListOf(),
+    var existing_conditions: MutableList<String> = mutableListOf(),
+    var family_conditions: MutableList<String> = mutableListOf()
 ): Parcelable

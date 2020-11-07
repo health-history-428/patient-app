@@ -54,7 +54,9 @@ class MockApi: ApiInterface {
     override suspend fun getPatientInfo(): PatientInfo {
         delay(1000)
         return PatientInfo(Calendar.getInstance().time, "6'3\"","male",
-        listOf("Pollen", "Air"), emptyList(), listOf("Appendix Removal"), emptyList(), emptyList())
+        mutableListOf("Pollen", "Air"), mutableListOf(),
+            mutableListOf("Appendix Removal"), mutableListOf(), mutableListOf()
+        )
     }
 
     override suspend fun updatePatientInfo(info: PatientInfo): PatientInfo {

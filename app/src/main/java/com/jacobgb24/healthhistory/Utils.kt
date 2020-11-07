@@ -126,7 +126,6 @@ fun TextInputEditText.prepareForDate(context: Context) {
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             val date = Calendar.getInstance()
             date.set(year, month, dayOfMonth)
-            quickLog("$year, $month, $dayOfMonth")
             this.setText(dateToString(date.time))
 
         }
