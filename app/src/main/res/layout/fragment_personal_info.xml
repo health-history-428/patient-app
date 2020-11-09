@@ -38,6 +38,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:headerTitle="Contact Info"
+                    app:headerButtonText="EDIT"
                     app:headerIcon="@drawable/ic_person"/>
                 <com.jacobgb24.healthhistory.views.components.InfoItem
                     android:layout_width="wrap_content"
@@ -67,6 +68,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:headerTitle="Health Info"
+                    app:headerButtonText="EDIT"
                     app:headerIcon="@drawable/ic_heart"/>
                 <com.jacobgb24.healthhistory.views.components.InfoItem
                     android:layout_width="wrap_content"
@@ -116,6 +118,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toTopOf="parent"
                     app:headerTitle="Insurance"
+                    app:headerButtonText="EDIT"
                     app:headerIcon="@drawable/ic_card"/>
                 <com.jacobgb24.healthhistory.views.components.InfoItem
                     android:layout_width="wrap_content"

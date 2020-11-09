@@ -9,6 +9,7 @@ import com.jacobgb24.healthhistory.api.Resource
 import com.jacobgb24.healthhistory.getApiError
 import com.jacobgb24.healthhistory.model.Contact
 import com.jacobgb24.healthhistory.model.PatientInfo
+import com.jacobgb24.healthhistory.quickLog
 import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
@@ -21,6 +22,7 @@ class HealthInfoEditViewModel @ViewModelInject constructor(
 
 
     fun updatePatientInfo() = liveData(dispatcher) {
+        quickLog("updatePatientInfo called with obj: ${patientInfo.value?.toString()}")
         if (patientInfo.value == null) {
             emit(Resource.error(null, "Data was null"))
             return@liveData
@@ -32,4 +34,5 @@ class HealthInfoEditViewModel @ViewModelInject constructor(
             emit(Resource.error(null, "Error: ${e.getApiError()}"))
         }
     }
+
 }

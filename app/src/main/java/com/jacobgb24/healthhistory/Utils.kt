@@ -13,6 +13,7 @@ import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.JsonParseException
@@ -32,6 +33,20 @@ private val DATE_FORMATTER = DateFormat.getDateInstance(MEDIUM)
 @BindingAdapter("errorText")
 fun setErrorMessage(view: TextInputLayout, errorMessage: String?) {
     view.error = errorMessage
+}
+
+/**
+ * A little helper to let the livedata know it has changed
+ */
+fun <T> MutableLiveData<T>.notifyObserver() {
+    this.value = this.value
+}
+
+fun <T> LiveData<T>.toMutable(): MutableLiveData<T> {
+    val mutable = MutableLiveData<T>()
+    val mediated = MediatorLiveData<Unit>()
+    mediated.addSource(this) { mutable.value = it }
+    return mutable
 }
 
 /**

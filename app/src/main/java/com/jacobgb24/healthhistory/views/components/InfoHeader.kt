@@ -22,7 +22,7 @@ class InfoHeader @JvmOverloads constructor(
             val styledAttributes = context.obtainStyledAttributes(it, R.styleable.InfoHeader, 0, 0)
             info_header_title.text = styledAttributes.getString((R.styleable.InfoHeader_headerTitle))
             info_header_icon.setImageDrawable(styledAttributes.getDrawable((R.styleable.InfoHeader_headerIcon)))
-
+            info_header_button.text = styledAttributes.getString(R.styleable.InfoHeader_headerButtonText)
             styledAttributes.recycle()
 
         }

@@ -29,7 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_height="42dp"
         android:minHeight="0dp"
-        android:text="EDIT"
         android:textAlignment="textEnd"
         app:layout_constraintBottom_toBottomOf="@id/info_header_title"
         app:layout_constraintEnd_toEndOf="parent"

@@ -3,6 +3,7 @@
     <declare-styleable name="InfoHeader">
         <attr name="headerTitle" format="string"/>
         <attr name="headerIcon" format="integer"/>
+        <attr name="headerButtonText" format="string"/>
     </declare-styleable>
 
     <declare-styleable name="InfoItem">

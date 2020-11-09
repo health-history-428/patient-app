@@ -106,10 +106,70 @@
                         android:text='@={viewmodel.patientInfo.gender}' />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.jacobgb24.healthhistory.views.components.EditRecyclerView
+                <com.jacobgb24.healthhistory.views.components.InfoHeader
+                    android:id="@+id/allergies_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:strings='@={viewmodel.patientInfo.allergies}'/>
+                    app:headerTitle="Allergies"
+                    app:headerButtonText="ADD"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/allergies_list"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.jacobgb24.healthhistory.views.components.InfoHeader
+                    android:id="@+id/medications_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:headerTitle="Medications"
+                    app:headerButtonText="ADD"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/medications_list"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.jacobgb24.healthhistory.views.components.InfoHeader
+                    android:id="@+id/surgeries_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:headerTitle="Surgeries"
+                    app:headerButtonText="ADD"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/surgeries_list"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.jacobgb24.healthhistory.views.components.InfoHeader
+                    android:id="@+id/existing_cond_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:headerTitle="Existing Conditions"
+                    app:headerButtonText="ADD"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/existing_cond_list"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <com.jacobgb24.healthhistory.views.components.InfoHeader
+                    android:id="@+id/family_cond_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:headerTitle="Family Conditions"
+                    app:headerButtonText="ADD"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/family_cond_list"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
 
             </LinearLayout>
