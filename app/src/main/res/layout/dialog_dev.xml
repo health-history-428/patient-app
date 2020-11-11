@@ -1,51 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:padding="16dp">
 
     <EditText
         android:id="@+id/dev_ip"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:hint="Server IP"
-        app:layout_constraintWidth_percent=".75"/>
-    <TextView
-        android:layout_width="0dp"
-        android:id="@+id/dev_server_text"
-        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".75" />
+
+    <TextView
+        android:id="@+id/dev_server_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:scrollHorizontally="false"
-        app:layout_constraintTop_toBottomOf="@id/dev_ip"
+        android:text="Note: 10.0.2.2 is the computer's localhost when on emulator"
         app:layout_constraintEnd_toStartOf="@id/dev_save"
-        android:text="Note: 10.0.2.2 is the computer's localhost when on emulator">
-    </TextView>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dev_ip"></TextView>
+
     <EditText
         android:id="@+id/dev_port"
         android:layout_width="0dp"
-        android:inputType="number"
         android:layout_height="wrap_content"
         android:hint="Port"
+        android:inputType="number"
         app:layout_constraintStart_toEndOf="@id/dev_ip"
-        app:layout_constraintWidth_percent=".25"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".25" />
 
     <Button
         android:id="@+id/dev_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="Save"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <CheckBox
         android:id="@+id/dev_mock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/dev_server_text"
+        android:text="Use Mock Server"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Use Mock Server"/>
+        app:layout_constraintTop_toBottomOf="@id/dev_server_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

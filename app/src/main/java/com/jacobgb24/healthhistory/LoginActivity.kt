@@ -14,7 +14,7 @@ import com.jacobgb24.healthhistory.views.LoginFragment
 import com.jacobgb24.healthhistory.views.RegistrationFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.dev_dialog.view.*
+import kotlinx.android.synthetic.main.dialog_dev.view.*
 
 
 @AndroidEntryPoint
@@ -57,7 +57,7 @@ class LoginActivity: AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.dev_tools -> {
-                val dialogView = LayoutInflater.from(this).inflate(R.layout.dev_dialog, null)
+                val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_dev, null)
                 AlertDialog.Builder(this).setView(dialogView).setTitle("Dev Tools").show()
 
                 dialogView.dev_ip.setText(sharedPrefs.getString("SERVER_IP", "10.0.2.2"))

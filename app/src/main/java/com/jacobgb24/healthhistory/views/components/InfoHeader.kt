@@ -22,13 +22,20 @@ class InfoHeader @JvmOverloads constructor(
             val styledAttributes = context.obtainStyledAttributes(it, R.styleable.InfoHeader, 0, 0)
             info_header_title.text = styledAttributes.getString((R.styleable.InfoHeader_headerTitle))
             info_header_icon.setImageDrawable(styledAttributes.getDrawable((R.styleable.InfoHeader_headerIcon)))
-            info_header_button.text = styledAttributes.getString(R.styleable.InfoHeader_headerButtonText)
+            val buttonText = styledAttributes.getString(R.styleable.InfoHeader_headerButtonText)
+            if (buttonText == null)
+                info_header_button.visibility = GONE
+            else
+                info_header_button.text = buttonText
             styledAttributes.recycle()
 
         }
     }
 
-    fun setEditClick(action: (View) -> Unit) {
+    /**
+     * Set what should happen when the button is clicked
+     */
+    fun setButtonClick(action: (View) -> Unit) {
         info_header_button.setOnClickListener(action)
     }
 }

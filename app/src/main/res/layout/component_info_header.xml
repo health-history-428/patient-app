@@ -7,7 +7,7 @@
         android:id="@+id/info_header_icon"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:paddingHorizontal="4dp"
+        android:paddingHorizontal="8dp"
         app:layout_constraintBottom_toBottomOf="@id/info_header_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/info_header_title"
@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/info_header_icon"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp" />
 
     <Button
         android:id="@+id/info_header_button"
@@ -30,6 +30,7 @@
         android:layout_height="42dp"
         android:minHeight="0dp"
         android:textAlignment="textEnd"
+        android:paddingEnd="16dp"
         app:layout_constraintBottom_toBottomOf="@id/info_header_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/info_header_title" />

@@ -34,14 +34,17 @@ class InfoFragment: Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = model
 
-        binding.infoContactHeader.setEditClick { showEditDialog(EditDialogType.CONTACT) }
-        binding.infoHealthHeader.setEditClick { showEditDialog(EditDialogType.HEALTH) }
-        binding.infoInsuranceHeader.setEditClick { showEditDialog(EditDialogType.INSURANCE) }
+        binding.infoContactHeader.setButtonClick { showEditDialog(EditDialogType.CONTACT) }
+        binding.infoHealthHeader.setButtonClick { showEditDialog(EditDialogType.HEALTH) }
+        binding.infoInsuranceHeader.setButtonClick { showEditDialog(EditDialogType.INSURANCE) }
 
         return binding.root
     }
 
 
+    /**
+     * Shows the edit dialog for the given type. For each dialog we bundle the object from here
+     */
     private fun showEditDialog(type: EditDialogType) {
         val bundle = Bundle()
         val fragment: DialogFragment
@@ -72,7 +75,6 @@ class InfoFragment: Fragment() {
     }
 
     fun refreshModel() {
-        quickLog("refresh called")
         model.refresh()
     }
 

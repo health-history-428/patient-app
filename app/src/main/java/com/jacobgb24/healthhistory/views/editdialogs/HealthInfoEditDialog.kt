@@ -1,9 +1,11 @@
 package com.jacobgb24.healthhistory.views.editdialogs
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -16,6 +18,7 @@ import com.jacobgb24.healthhistory.viewmodels.editdialogs.HealthInfoEditViewMode
 import com.jacobgb24.healthhistory.views.InfoFragment
 import com.jacobgb24.healthhistory.views.components.EditAdapter
 import com.jacobgb24.healthhistory.views.components.MaterialSpinnerAdapter
+import kotlinx.android.synthetic.main.dialog_height_input.view.*
 
 
 class HealthInfoEditDialog : DialogFragment() {
@@ -51,25 +54,29 @@ class HealthInfoEditDialog : DialogFragment() {
                 arrayOf("Male", "Female", "Other")
             ))
 
+        binding.editHeight.isLongClickable = false
+        binding.editHeight.isFocusable = false
+        binding.editHeight.setOnClickListener { showHeightDialog() }
+
         binding.allergiesList.adapter = allergyAdapter
         allergyAdapter.list = model.patientInfo.value?.allergies ?: mutableListOf()
-        binding.allergiesHeader.setEditClick { allergyAdapter.addItem() }
+        binding.allergiesHeader.setButtonClick { allergyAdapter.addItem() }
 
         binding.medicationsList.adapter = medicationAdapter
         medicationAdapter.list = model.patientInfo.value?.medications ?: mutableListOf()
-        binding.medicationsHeader.setEditClick { medicationAdapter.addItem() }
+        binding.medicationsHeader.setButtonClick { medicationAdapter.addItem() }
 
         binding.surgeriesList.adapter = surgeryAdapter
         surgeryAdapter.list = model.patientInfo.value?.surgeries ?: mutableListOf()
-        binding.surgeriesHeader.setEditClick { surgeryAdapter.addItem() }
+        binding.surgeriesHeader.setButtonClick { surgeryAdapter.addItem() }
 
         binding.existingCondList.adapter = existingCondAdapter
         existingCondAdapter.list = model.patientInfo.value?.existing_conditions ?: mutableListOf()
-        binding.existingCondHeader.setEditClick { existingCondAdapter.addItem() }
+        binding.existingCondHeader.setButtonClick { existingCondAdapter.addItem() }
 
         binding.familyCondList.adapter = familyCondAdapter
         familyCondAdapter.list = model.patientInfo.value?.family_conditions ?: mutableListOf()
-        binding.familyCondHeader.setEditClick { familyCondAdapter.addItem() }
+        binding.familyCondHeader.setButtonClick { familyCondAdapter.addItem() }
 
 
         return binding.root
@@ -115,5 +122,33 @@ class HealthInfoEditDialog : DialogFragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    /**
+     * Shows a dialog for user to input their height in feet/inches. Updates model
+     */
+    private fun showHeightDialog() {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_height_input, null)
+        val feetPicker = dialogView.edit_feet
+        feetPicker.minValue = 1
+        feetPicker.maxValue = 8
+        feetPicker.displayedValues = (1..8).map { "${it}ft" }.toTypedArray()
+        feetPicker.value = model.patientInfo.value?.height
+            ?.split("'")?.get(0)?.trim()?.toInt() ?: 1
+
+        val inchesPicker = dialogView.edit_inches
+        inchesPicker.minValue = 0
+        inchesPicker.maxValue = 11
+        inchesPicker.displayedValues = (0..11).map {"${it}in"}.toTypedArray()
+        inchesPicker.value = model.patientInfo.value?.height
+            ?.split("'")?.get(1)?.trim('"')?.toInt() ?: 0
+
+        AlertDialog.Builder(requireContext()).setView(dialogView)
+            .setTitle("Set Height")
+            .setPositiveButton("SAVE") { _: DialogInterface, _: Int ->
+                model.patientInfo.value?.height = "${feetPicker.value}'${inchesPicker.value}\""
+                model.patientInfo.notifyObserver()
+            }.setNegativeButton("CANCEL", null)
+            .show()
     }
 }
