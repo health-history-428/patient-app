@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.jacobgb24.healthhistory.R
-import com.jacobgb24.healthhistory.quickLog
 import kotlinx.android.synthetic.main.list_item_edit.view.*
 
 /**

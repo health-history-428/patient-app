@@ -7,10 +7,7 @@ import androidx.lifecycle.liveData
 import com.jacobgb24.healthhistory.api.ApiInterface
 import com.jacobgb24.healthhistory.api.Resource
 import com.jacobgb24.healthhistory.getApiError
-import com.jacobgb24.healthhistory.model.Contact
 import com.jacobgb24.healthhistory.model.Insurance
-import com.jacobgb24.healthhistory.model.PatientInfo
-import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 class InsuranceEditViewModel @ViewModelInject constructor(

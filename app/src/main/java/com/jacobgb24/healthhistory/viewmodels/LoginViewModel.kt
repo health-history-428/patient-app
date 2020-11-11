@@ -14,7 +14,6 @@ import com.jacobgb24.healthhistory.api.Resource
 import com.jacobgb24.healthhistory.combineData
 import com.jacobgb24.healthhistory.getApiError
 import dagger.hilt.android.qualifiers.ApplicationContext
-import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 class LoginViewModel @ViewModelInject constructor(

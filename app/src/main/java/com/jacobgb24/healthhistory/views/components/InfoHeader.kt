@@ -20,7 +20,8 @@ class InfoHeader @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(R.layout.component_info_header, this, true)
         attrs?.let {
             val styledAttributes = context.obtainStyledAttributes(it, R.styleable.InfoHeader, 0, 0)
-            info_header_title.text = styledAttributes.getString((R.styleable.InfoHeader_headerTitle))
+            info_header_title.text =
+                styledAttributes.getString((R.styleable.InfoHeader_headerTitle))
             info_header_icon.setImageDrawable(styledAttributes.getDrawable((R.styleable.InfoHeader_headerIcon)))
             val buttonText = styledAttributes.getString(R.styleable.InfoHeader_headerButtonText)
             if (buttonText == null)

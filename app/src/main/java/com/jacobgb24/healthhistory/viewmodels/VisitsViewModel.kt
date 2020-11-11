@@ -8,7 +8,4 @@ import kotlin.coroutines.CoroutineContext
 class VisitsViewModel @ViewModelInject constructor(
     private var api: ApiInterface,
     private val dispatcher: CoroutineContext
-) : ViewModel() {
-
-
-}
+) : ViewModel()

@@ -10,7 +10,6 @@ import com.jacobgb24.healthhistory.model.Contact
 import com.jacobgb24.healthhistory.model.Insurance
 import com.jacobgb24.healthhistory.model.PatientInfo
 import retrofit2.HttpException
-import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 class InfoViewModel @ViewModelInject constructor(

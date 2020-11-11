@@ -4,12 +4,12 @@
     <item
         android:id="@+id/main_info_item"
         android:enabled="true"
-        android:title="Personal Info"
-        android:icon="@drawable/ic_person"/>
+        android:icon="@drawable/ic_person"
+        android:title="Personal Info" />
     <item
         android:id="@+id/main_visits_item"
         android:enabled="true"
-        android:title="Past Visits"
-        android:icon="@drawable/ic_history"/>
+        android:icon="@drawable/ic_history"
+        android:title="Past Visits" />
 
 </menu>

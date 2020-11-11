@@ -10,7 +10,6 @@ import com.jacobgb24.healthhistory.api.ApiInterface
 import com.jacobgb24.healthhistory.api.Resource
 import com.jacobgb24.healthhistory.combineData
 import com.jacobgb24.healthhistory.getApiError
-import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 class RegistrationViewModel @ViewModelInject constructor(

@@ -8,7 +8,6 @@ import com.jacobgb24.healthhistory.api.ApiInterface
 import com.jacobgb24.healthhistory.api.Resource
 import com.jacobgb24.healthhistory.getApiError
 import com.jacobgb24.healthhistory.model.Contact
-import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 class ContactEditViewModel @ViewModelInject constructor(

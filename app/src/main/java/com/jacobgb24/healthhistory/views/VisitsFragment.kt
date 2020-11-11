@@ -13,11 +13,13 @@ import com.jacobgb24.healthhistory.viewmodels.VisitsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class VisitsFragment: Fragment() {
+class VisitsFragment : Fragment() {
     private val model: VisitsViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // bindings setup
         val binding: FragmentPastVisitsBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_past_visits, container, false)

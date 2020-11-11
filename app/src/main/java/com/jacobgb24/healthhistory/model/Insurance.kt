@@ -18,4 +18,4 @@ data class Insurance(
     var insured_first_name: String = "",
     var employer_name: String = "",
     var employer_address: Address = Address()
-): Parcelable
+) : Parcelable

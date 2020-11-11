@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.jacobgb24.healthhistory.R
-import com.jacobgb24.healthhistory.quickLog
 import kotlinx.android.synthetic.main.component_info_item.view.*
 
 /**

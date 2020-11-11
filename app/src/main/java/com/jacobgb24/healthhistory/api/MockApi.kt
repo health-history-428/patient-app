@@ -11,16 +11,18 @@ import java.util.*
 /**
  * A mock API useful for testing. This can be set in the dev menu on the login page
  */
-class MockApi: ApiInterface {
+class MockApi : ApiInterface {
 
     /**
      * Helpful function for creating an exception like what the real server produces
      */
     private inline fun <reified T> createError(err: String, code: Int = 400): HttpException {
-        throw HttpException(Response.error<T>(
-            code,
-            "{\"error\":[\"${err}\"]}".toResponseBody("application/json".toMediaTypeOrNull())
-        ))
+        throw HttpException(
+            Response.error<T>(
+                code,
+                "{\"error\":[\"${err}\"]}".toResponseBody("application/json".toMediaTypeOrNull())
+            )
+        )
     }
 
 
@@ -34,10 +36,12 @@ class MockApi: ApiInterface {
         print("register called")
         if (obj.email.contains("bad"))
             throw createError<User>("Invalid Email")
-        return User(2, 2, "register-mock@api.com")    }
+        return User(2, 2, "register-mock@api.com")
+    }
 
     override suspend fun getInsurance(): Insurance {
-        return Insurance("Real Insurance Co.", "12345678",
+        return Insurance(
+            "Real Insurance Co.", "12345678",
             "Doe", "John",
             Calendar.getInstance().time, Calendar.getInstance().time,
             "876554321", "Smith", "Joe",
@@ -53,8 +57,9 @@ class MockApi: ApiInterface {
 
     override suspend fun getPatientInfo(): PatientInfo {
         delay(1000)
-        return PatientInfo(Calendar.getInstance().time, "6'3\"","male",
-        mutableListOf("Pollen", "Air"), mutableListOf(),
+        return PatientInfo(
+            Calendar.getInstance().time, "6'3\"", "male",
+            mutableListOf("Pollen", "Air"), mutableListOf(),
             mutableListOf("Appendix Removal"), mutableListOf(), mutableListOf()
         )
     }
@@ -65,7 +70,8 @@ class MockApi: ApiInterface {
     }
 
     override suspend fun getContact(): Contact {
-        return Contact(User(3, 3, "contact-mock@api.com"),
+        return Contact(
+            User(3, 3, "contact-mock@api.com"),
             Address("0 N 0 E", "", "Provo", "UT", (0..99999).random().toString().padStart(5, '0')),
             "(000) 123-4567", "John Doe"
         )

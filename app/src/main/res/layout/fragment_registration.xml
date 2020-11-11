@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="viewmodel"
             type="com.jacobgb24.healthhistory.viewmodels.RegistrationViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
@@ -18,53 +21,51 @@
             android:id="@+id/register_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/container"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="Welcome\nPlease Register"
             android:textAlignment="center"
             android:textSize="32sp"
-            android:text="Welcome\nPlease Register"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/container" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/register_email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:errorEnabled="true"
             android:layout_marginTop="32dp"
-            app:errorText="@{viewmodel.emailError}"
             android:hint="Email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:errorEnabled="true"
+            app:errorText="@{viewmodel.emailError}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:inputType="textEmailAddress"
-                android:text="@={viewmodel.email}"
                 android:layout_height="wrap_content"
-                />
+                android:inputType="textEmailAddress"
+                android:text="@={viewmodel.email}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/register_password"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:errorEnabled="true"
             android:hint="Password"
             app:endIconMode="password_toggle"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:inputType="textPassword"
-                android:text="@={viewmodel.password}"
                 android:layout_height="wrap_content"
-                />
+                android:inputType="textPassword"
+                android:text="@={viewmodel.password}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -72,11 +73,11 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:errorEnabled="true"
-            app:errorText="@{viewmodel.passwordConfirmError}"
             android:hint="Confirm Password"
             android:inputType="textPassword"
             app:endIconMode="password_toggle"
+            app:errorEnabled="true"
+            app:errorText="@{viewmodel.passwordConfirmError}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/register_password">
@@ -84,8 +85,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@={viewmodel.passwordConfirm}"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:text="@={viewmodel.passwordConfirm}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -94,22 +95,22 @@
             android:layout_height="wrap_content"
             android:enabled="@{viewmodel.allValid}"
             android:text="Register"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/registration_password_confirm"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.1" />
 
         <Button
             android:id="@+id/switch_login_butt"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/register_butt"
             android:layout_marginTop="128dp"
+            android:text="Switch to Login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:text="Switch to Login"/>
+            app:layout_constraintTop_toBottomOf="@id/register_butt" />
 
 
         <ProgressBar

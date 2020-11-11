@@ -18,7 +18,7 @@ object ApiBuilder {
      */
     private val client: OkHttpClient
         get() {
-            val interceptor : HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
+            val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             }
 

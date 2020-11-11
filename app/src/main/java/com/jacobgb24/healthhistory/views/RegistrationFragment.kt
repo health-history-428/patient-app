@@ -18,11 +18,13 @@ import com.jacobgb24.healthhistory.viewmodels.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RegistrationFragment: Fragment() {
+class RegistrationFragment : Fragment() {
     private val model: RegistrationViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // bindings setup
         val binding: FragmentRegistrationBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_registration, container, false)

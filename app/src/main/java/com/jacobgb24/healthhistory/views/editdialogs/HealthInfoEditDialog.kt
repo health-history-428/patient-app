@@ -11,9 +11,11 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.jacobgb24.healthhistory.*
+import com.jacobgb24.healthhistory.R
 import com.jacobgb24.healthhistory.api.Resource
 import com.jacobgb24.healthhistory.databinding.DialogEditHealthBinding
+import com.jacobgb24.healthhistory.notifyObserver
+import com.jacobgb24.healthhistory.prepareForDate
 import com.jacobgb24.healthhistory.viewmodels.editdialogs.HealthInfoEditViewModel
 import com.jacobgb24.healthhistory.views.InfoFragment
 import com.jacobgb24.healthhistory.views.components.EditAdapter
@@ -50,9 +52,11 @@ class HealthInfoEditDialog : DialogFragment() {
         binding.editBirthday.prepareForDate(requireContext())
 
         binding.editGender.setAdapter(
-            MaterialSpinnerAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,
+            MaterialSpinnerAdapter(
+                requireContext(), android.R.layout.simple_spinner_dropdown_item,
                 arrayOf("Male", "Female", "Other")
-            ))
+            )
+        )
 
         binding.editHeight.isLongClickable = false
         binding.editHeight.isFocusable = false
@@ -88,14 +92,19 @@ class HealthInfoEditDialog : DialogFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.action_save -> {
                 // update our lists now with what the adapters currently hold
-                model.patientInfo.value?.allergies = allergyAdapter.getTrimmedList() as MutableList<String>
-                model.patientInfo.value?.medications = medicationAdapter.getTrimmedList() as MutableList<String>
-                model.patientInfo.value?.surgeries = surgeryAdapter.getTrimmedList() as MutableList<String>
-                model.patientInfo.value?.existing_conditions = existingCondAdapter.getTrimmedList() as MutableList<String>
-                model.patientInfo.value?.family_conditions = familyCondAdapter.getTrimmedList() as MutableList<String>
+                model.patientInfo.value?.allergies =
+                    allergyAdapter.getTrimmedList() as MutableList<String>
+                model.patientInfo.value?.medications =
+                    medicationAdapter.getTrimmedList() as MutableList<String>
+                model.patientInfo.value?.surgeries =
+                    surgeryAdapter.getTrimmedList() as MutableList<String>
+                model.patientInfo.value?.existing_conditions =
+                    existingCondAdapter.getTrimmedList() as MutableList<String>
+                model.patientInfo.value?.family_conditions =
+                    familyCondAdapter.getTrimmedList() as MutableList<String>
 
                 model.updatePatientInfo().observe(viewLifecycleOwner, {
                     it?.let { resource ->
@@ -139,7 +148,7 @@ class HealthInfoEditDialog : DialogFragment() {
         val inchesPicker = dialogView.edit_inches
         inchesPicker.minValue = 0
         inchesPicker.maxValue = 11
-        inchesPicker.displayedValues = (0..11).map {"${it}in"}.toTypedArray()
+        inchesPicker.displayedValues = (0..11).map { "${it}in" }.toTypedArray()
         inchesPicker.value = model.patientInfo.value?.height
             ?.split("'")?.get(1)?.trim('"')?.toInt() ?: 0
 

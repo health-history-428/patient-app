@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.dialog_dev.view.*
 
 
 @AndroidEntryPoint
-class LoginActivity: AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private lateinit var sharedPrefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,8 +30,7 @@ class LoginActivity: AppCompatActivity() {
         sharedPrefs = getSharedPreferences("PREFS", Context.MODE_PRIVATE)
         if (sharedPrefs.getString("USER_EMAIL", "") != "") {
             setFragment(LoginFragment())
-        }
-        else {
+        } else {
             setFragment(RegistrationFragment())
         }
 
@@ -55,7 +54,7 @@ class LoginActivity: AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
+        return when (item.itemId) {
             R.id.dev_tools -> {
                 val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_dev, null)
                 AlertDialog.Builder(this).setView(dialogView).setTitle("Dev Tools").show()

@@ -13,4 +13,4 @@ data class User(
     var email: String = "",
     var user_type: String = "PATIENT",
     var role: String = "OWNER"
-): Parcelable
+) : Parcelable

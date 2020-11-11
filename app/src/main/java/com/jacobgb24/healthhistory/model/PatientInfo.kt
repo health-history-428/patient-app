@@ -15,4 +15,4 @@ data class PatientInfo(
     var surgeries: MutableList<String> = mutableListOf(),
     var existing_conditions: MutableList<String> = mutableListOf(),
     var family_conditions: MutableList<String> = mutableListOf()
-): Parcelable
+) : Parcelable

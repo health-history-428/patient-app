@@ -1,19 +1,14 @@
 package com.jacobgb24.healthhistory.views.editdialogs
 
-import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.appcompat.widget.TooltipCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.jacobgb24.healthhistory.MainActivity
 import com.jacobgb24.healthhistory.R
 import com.jacobgb24.healthhistory.api.Resource
 import com.jacobgb24.healthhistory.databinding.DialogEditContactBinding
@@ -26,8 +21,10 @@ class ContactEditDialog : DialogFragment() {
     private lateinit var progressBar: ProgressBar
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding: DialogEditContactBinding =
             DataBindingUtil.inflate(inflater, R.layout.dialog_edit_contact, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -50,7 +47,7 @@ class ContactEditDialog : DialogFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.action_save -> {
                 model.updateContactInfo().observe(viewLifecycleOwner, {
                     it?.let { resource ->
@@ -64,7 +61,8 @@ class ContactEditDialog : DialogFragment() {
                                 progressBar.visibility = View.VISIBLE
                             }
                             Resource.Status.ERROR -> {
-                                Toast.makeText(activity, resource.message, Toast.LENGTH_SHORT).show()
+                                Toast.makeText(activity, resource.message, Toast.LENGTH_SHORT)
+                                    .show()
                                 progressBar.visibility = View.GONE
                             }
                         }

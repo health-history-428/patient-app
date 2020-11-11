@@ -10,7 +10,6 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.JsonParseException
 import com.google.gson.JsonParser
 import retrofit2.HttpException
-import java.lang.Exception
 import java.util.*
 
 /**
@@ -30,8 +29,7 @@ fun TextInputLayout.doOnEnter(action: () -> Unit) {
         if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
             action.invoke()
             true
-        }
-        else {
+        } else {
             false
         }
     }
@@ -56,8 +54,10 @@ fun TextInputEditText.prepareForDate(context: Context) {
             val cal = Calendar.getInstance()
             cal.time = it
 
-            val datePickerDialog = DatePickerDialog(context, dateSetListener,
-                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
+            val datePickerDialog = DatePickerDialog(
+                context, dateSetListener,
+                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)
+            )
 
             datePickerDialog.show()
         }
@@ -75,7 +75,8 @@ fun Exception.getApiError(): String {
         try {
             val parsedString = JsonParser().parse(errorJsonString)
             return parsedString.asJsonObject["error"].asString
-        } catch (exception: JsonParseException) { }
+        } catch (exception: JsonParseException) {
+        }
     }
     return this.message ?: "Unknown Error"
 }

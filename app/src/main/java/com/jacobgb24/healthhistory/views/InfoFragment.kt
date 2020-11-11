@@ -15,7 +15,6 @@ import com.jacobgb24.healthhistory.databinding.FragmentPersonalInfoBinding
 import com.jacobgb24.healthhistory.model.Contact
 import com.jacobgb24.healthhistory.model.Insurance
 import com.jacobgb24.healthhistory.model.PatientInfo
-import com.jacobgb24.healthhistory.quickLog
 import com.jacobgb24.healthhistory.viewmodels.InfoViewModel
 import com.jacobgb24.healthhistory.views.editdialogs.ContactEditDialog
 import com.jacobgb24.healthhistory.views.editdialogs.HealthInfoEditDialog
@@ -23,11 +22,13 @@ import com.jacobgb24.healthhistory.views.editdialogs.InsuranceEditDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class InfoFragment: Fragment() {
+class InfoFragment : Fragment() {
     private val model: InfoViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // bindings setup
         val binding: FragmentPersonalInfoBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_personal_info, container, false)
@@ -48,7 +49,7 @@ class InfoFragment: Fragment() {
     private fun showEditDialog(type: EditDialogType) {
         val bundle = Bundle()
         val fragment: DialogFragment
-        fragment = when(type) {
+        fragment = when (type) {
             EditDialogType.CONTACT -> {
                 bundle.putParcelable("OBJ", model.contact.value?.data ?: Contact())
                 ContactEditDialog()

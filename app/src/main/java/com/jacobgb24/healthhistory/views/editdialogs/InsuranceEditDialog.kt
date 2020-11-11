@@ -1,6 +1,5 @@
 package com.jacobgb24.healthhistory.views.editdialogs
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.*
 import android.widget.ProgressBar
@@ -10,23 +9,21 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.jacobgb24.healthhistory.EditDialogType
 import com.jacobgb24.healthhistory.R
 import com.jacobgb24.healthhistory.api.Resource
-import com.jacobgb24.healthhistory.databinding.DialogEditContactBinding
 import com.jacobgb24.healthhistory.databinding.DialogEditInsuranceBinding
 import com.jacobgb24.healthhistory.prepareForDate
-import com.jacobgb24.healthhistory.viewmodels.editdialogs.ContactEditViewModel
 import com.jacobgb24.healthhistory.viewmodels.editdialogs.InsuranceEditViewModel
 import com.jacobgb24.healthhistory.views.InfoFragment
-import kotlinx.android.synthetic.main.dialog_edit_contact.*
 
 class InsuranceEditDialog : DialogFragment() {
     private val model: InsuranceEditViewModel by activityViewModels()
     private lateinit var progressBar: ProgressBar
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding: DialogEditInsuranceBinding =
             DataBindingUtil.inflate(inflater, R.layout.dialog_edit_insurance, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -52,7 +49,7 @@ class InsuranceEditDialog : DialogFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.action_save -> {
                 model.updateInsurance().observe(viewLifecycleOwner, {
                     it?.let { resource ->
