@@ -1,6 +1,7 @@
 package com.jacobgb24.healthhistory.api
 
 import android.content.Context
+import com.google.gson.GsonBuilder
 import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -32,11 +33,13 @@ object ApiBuilder {
                 .build()
         }
 
+    private val gson = GsonBuilder().setDateFormat("yyyy-MM-dd").create()
+
     private fun getRetrofit(ip: String, port: Int): Retrofit {
         val url = "http://%s:%d/".format(ip, port)
         return Retrofit.Builder()
             .baseUrl(url)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
     }

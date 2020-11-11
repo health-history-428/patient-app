@@ -12,6 +12,8 @@ data class Address(
     var zip_code: String = "",
 ) : Parcelable {
     override fun toString(): String {
+        if (address_1.isEmpty() && city.isEmpty() && state.isEmpty() && zip_code.isEmpty())
+            return ""
         return "$address_1\n$address_2${if (address_2.isNotEmpty()) "\n" else ""}$city, $state, $zip_code"
     }
 }

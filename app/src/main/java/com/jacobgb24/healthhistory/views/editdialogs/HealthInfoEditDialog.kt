@@ -21,6 +21,7 @@ import com.jacobgb24.healthhistory.views.InfoFragment
 import com.jacobgb24.healthhistory.views.components.EditAdapter
 import com.jacobgb24.healthhistory.views.components.MaterialSpinnerAdapter
 import kotlinx.android.synthetic.main.dialog_height_input.view.*
+import java.lang.Exception
 
 
 class HealthInfoEditDialog : DialogFragment() {
@@ -142,15 +143,21 @@ class HealthInfoEditDialog : DialogFragment() {
         feetPicker.minValue = 1
         feetPicker.maxValue = 8
         feetPicker.displayedValues = (1..8).map { "${it}ft" }.toTypedArray()
-        feetPicker.value = model.patientInfo.value?.height
-            ?.split("'")?.get(0)?.trim()?.toInt() ?: 1
+        try {
+            feetPicker.value = model.patientInfo.value?.height
+                ?.split("'")?.get(0)?.trim()?.toInt() ?: 5
+        } catch (ignored: Exception) { feetPicker.value = 5 }
+
 
         val inchesPicker = dialogView.edit_inches
         inchesPicker.minValue = 0
         inchesPicker.maxValue = 11
         inchesPicker.displayedValues = (0..11).map { "${it}in" }.toTypedArray()
-        inchesPicker.value = model.patientInfo.value?.height
-            ?.split("'")?.get(1)?.trim('"')?.toInt() ?: 0
+        try {
+            inchesPicker.value = model.patientInfo.value?.height
+                ?.split("'")?.get(1)?.trim('"')?.toInt() ?: 8
+        } catch (ignored: Exception) { inchesPicker.value = 8}
+
 
         AlertDialog.Builder(requireContext()).setView(dialogView)
             .setTitle("Set Height")

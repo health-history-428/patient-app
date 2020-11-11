@@ -29,17 +29,17 @@ interface ApiInterface {
     suspend fun getInsurance(): Insurance
 
     @POST("insurance")
-    suspend fun updateInsurance(insurance: Insurance): Insurance
+    suspend fun updateInsurance(@Body insurance: Insurance): Insurance
 
     @GET("patient_information")
     suspend fun getPatientInfo(): PatientInfo
 
     @POST("patient_information")
-    suspend fun updatePatientInfo(info: PatientInfo): PatientInfo
+    suspend fun updatePatientInfo(@Body info: PatientInfo): PatientInfo
 
     @GET("contact")
     suspend fun getContact(): Contact
 
     @POST("contact")
-    suspend fun updateContact(contact: Contact): Contact
+    suspend fun updateContact(@Body contact: Contact): Contact
 }

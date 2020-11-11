@@ -59,12 +59,6 @@
                 <com.jacobgb24.healthhistory.views.components.InfoItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:itemKey="Email:"
-                    app:itemVal='@{viewmodel.contact.data.user.email ?? ""}' />
-
-                <com.jacobgb24.healthhistory.views.components.InfoItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     app:itemKey="Phone:"
                     app:itemVal='@{viewmodel.contact.data.phone ?? ""}' />
 
