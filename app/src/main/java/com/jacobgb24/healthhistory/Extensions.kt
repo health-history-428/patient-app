@@ -7,9 +7,12 @@ import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.JsonElement
 import com.google.gson.JsonParseException
 import com.google.gson.JsonParser
 import retrofit2.HttpException
+import java.lang.NullPointerException
+import java.text.ParseException
 import java.util.*
 
 /**
@@ -50,17 +53,18 @@ fun TextInputEditText.prepareForDate(context: Context) {
             this.setText(dateToString(date.time))
 
         }
-        DATE_FORMATTER.parse(this.text.toString())?.let {
-            val cal = Calendar.getInstance()
-            cal.time = it
+        val cal = Calendar.getInstance()
+        try {
+            DATE_FORMATTER.parse(this.text.toString())?.let {
+                cal.time = it
+            }
+        } catch (ignored: ParseException) { }
 
-            val datePickerDialog = DatePickerDialog(
-                context, dateSetListener,
-                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)
-            )
+        DatePickerDialog(
+            context, dateSetListener,
+            cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)
+        ).show()
 
-            datePickerDialog.show()
-        }
 
     }
 }
@@ -74,9 +78,12 @@ fun Exception.getApiError(): String {
         val errorJsonString = this.response()?.errorBody()?.string()
         try {
             val parsedString = JsonParser().parse(errorJsonString)
-            return parsedString.asJsonObject["error"].asString
-        } catch (exception: JsonParseException) {
-        }
+            return try {
+                parsedString.asJsonObject["error"].asString
+            } catch (exception: NullPointerException) {
+                parsedString.toString()
+            }
+        } catch (ignored: JsonParseException) {}
     }
     return this.message ?: "Unknown Error"
 }

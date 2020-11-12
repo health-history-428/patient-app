@@ -50,7 +50,7 @@ class HealthInfoEditDialog : DialogFragment() {
 
         progressBar = binding.saveProgress
 
-        binding.editBirthday.prepareForDate(requireContext())
+        binding.editBirthdate.prepareForDate(requireContext())
 
         binding.editGender.setAdapter(
             MaterialSpinnerAdapter(

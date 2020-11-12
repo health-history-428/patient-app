@@ -80,10 +80,10 @@
                     app:endIconMode="custom">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit_birthday"
+                        android:id="@+id/edit_birthdate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text='@={Utils.dateToString(viewmodel.patientInfo.birthday)}' />
+                        android:text='@={Utils.dateToString(viewmodel.patientInfo.birthdate)}' />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
