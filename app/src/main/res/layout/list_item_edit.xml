@@ -9,6 +9,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toStartOf="@id/item_remove_butt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,12 +24,11 @@
     <ImageButton
         android:id="@+id/item_remove_butt"
         android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@android:color/transparent"
+        android:layout_height="0dp"
         android:contentDescription="Delete"
-        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:background="?android:attr/selectableItemBackground"
         android:src="@drawable/ic_close"
-        android:tint="@color/secondaryDarkColor"
+        android:tint="@android:color/tertiary_text_light"
         app:layout_constraintBottom_toBottomOf="@id/item_edittext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/item_edittext" />
