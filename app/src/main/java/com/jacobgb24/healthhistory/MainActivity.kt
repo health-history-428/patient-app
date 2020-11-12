@@ -8,6 +8,10 @@ import com.jacobgb24.healthhistory.views.VisitsFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+/**
+ * MainActivity reached after the login/register pages.
+ * Shows either the InfoFragment or VisitsFragment depending on user selection of bottom nav bar
+ */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val infoFragment = InfoFragment()

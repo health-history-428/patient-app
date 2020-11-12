@@ -8,8 +8,7 @@ import com.jacobgb24.healthhistory.R
 import kotlinx.android.synthetic.main.component_info_item.view.*
 
 /**
- * Header for a group of items in the "Personal Info" tab
- * Contains icon, title, and edit button. Icon/title should be set in xml
+ * An individual text item. Shows the key,value pair that were set in xml
  */
 class InfoItem @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -27,8 +26,10 @@ class InfoItem @JvmOverloads constructor(
         }
     }
 
+    /**
+     * Necessary setter for databindings
+     */
     fun setItemVal(value: String) {
-//        quickLog("Set val called $value")
         info_item_val.text = value
     }
 }

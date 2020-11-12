@@ -9,14 +9,15 @@ import com.jacobgb24.healthhistory.R
 import kotlinx.android.synthetic.main.list_item_edit.view.*
 
 /**
- * RecyclerView adapter used for lists of EditTexts
- *
+ * RecyclerView adapter used for lists of EditTexts. Can add an empty item via `addItem()`.
+ * Individual views have ability to remove themselves
  */
 class EditAdapter : RecyclerView.Adapter<EditAdapter.EditHolder>() {
     var list = mutableListOf<String>()
         set(value) {
             list.clear()
             list.addAll(value)
+            // if list is empty, we'll add a blank entry so there's an edittext visible
             if (value.size == 0)
                 list.add("")
             notifyDataSetChanged()

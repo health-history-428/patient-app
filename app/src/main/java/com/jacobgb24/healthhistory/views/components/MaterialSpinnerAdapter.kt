@@ -5,7 +5,6 @@ import android.widget.ArrayAdapter
 import android.widget.Filter
 
 /**
- *
  * source: https://blog.usejournal.com/there-is-no-material-design-spinner-for-android-3261b7c77da8
  *
  * Almost unbelievably, if we want to create a Material Spinner,

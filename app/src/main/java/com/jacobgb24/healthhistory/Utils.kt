@@ -10,9 +10,14 @@ import java.text.DateFormat
 import java.text.DateFormat.MEDIUM
 import java.util.*
 
-
+/**
+ * Standard date format used in UI. This is NOT the format used to communicate with the backend
+ */
 val DATE_FORMATTER: DateFormat = DateFormat.getDateInstance(MEDIUM)
 
+/**
+ * Possible Types for the edit dialog
+ */
 enum class EditDialogType {
     CONTACT,
     HEALTH,

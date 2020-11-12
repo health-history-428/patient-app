@@ -33,6 +33,9 @@ object ApiBuilder {
                 .build()
         }
 
+    /**
+     * Custom gson instance to specify handling of date objects
+     */
     private val gson = GsonBuilder().setDateFormat("yyyy-MM-dd").create()
 
     private fun getRetrofit(ip: String, port: Int): Retrofit {

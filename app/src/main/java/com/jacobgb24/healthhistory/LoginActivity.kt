@@ -16,7 +16,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.dialog_dev.view.*
 
-
+/**
+ * Starting activity when the app is launched. Presents either a login or registration fragment.
+ * If a user has previously logged in we show that fragment otherwise we show registration.
+ *
+ */
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private lateinit var sharedPrefs: SharedPreferences

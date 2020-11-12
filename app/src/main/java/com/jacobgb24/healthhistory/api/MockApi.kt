@@ -56,6 +56,7 @@ class MockApi : ApiInterface {
     }
 
     override suspend fun getPatientInfo(): PatientInfo {
+        // artificial delay to test loading icon
         delay(1000)
         return PatientInfo(
             Calendar.getInstance().time, "6'3\"", "male",
@@ -70,8 +71,8 @@ class MockApi : ApiInterface {
     }
 
     override suspend fun getContact(): Contact {
+        // random zip code to show refresh occured
         return Contact(
-//            User(3, 3, "contact-mock@api.com"),
             Address("0 N 0 E", "", "Provo", "UT", (0..99999).random().toString().padStart(5, '0')),
             "(000) 123-4567", "John Doe"
         )

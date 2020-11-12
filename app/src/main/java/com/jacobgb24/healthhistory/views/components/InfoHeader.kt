@@ -10,7 +10,9 @@ import kotlinx.android.synthetic.main.component_info_header.view.*
 
 /**
  * Header for a group of items in the "Personal Info" tab
- * Contains icon, title, and edit button. Icon/title should be set in xml
+ * Contains icon, title, and optional button. Icon/title/button text should be set in xml.
+ * If the button text isn't set the button will be hidden. Click action can be set with
+ * `setButtonClick()`
  */
 class InfoHeader @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

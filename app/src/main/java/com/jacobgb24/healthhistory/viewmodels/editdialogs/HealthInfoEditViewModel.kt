@@ -20,7 +20,6 @@ class HealthInfoEditViewModel @ViewModelInject constructor(
 
 
     fun updatePatientInfo() = liveData(dispatcher) {
-        quickLog("updatePatientInfo called with obj: ${patientInfo.value?.toString()}")
         if (patientInfo.value == null) {
             emit(Resource.error(null, "Data was null"))
             return@liveData

@@ -24,17 +24,20 @@ class InsuranceEditDialog : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // binding setup
         val binding: DialogEditInsuranceBinding =
             DataBindingUtil.inflate(inflater, R.layout.dialog_edit_insurance, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = model
         model.insurance.value = arguments?.getParcelable("OBJ")
 
+        // toolbar setup
         val toolbar: Toolbar = binding.toolbar
         toolbar.title = "Edit Insurance Info"
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
         setHasOptionsMenu(true)
 
+        // other setup
         progressBar = binding.saveProgress
 
         binding.editPolicyBegin.prepareForDate(requireContext())

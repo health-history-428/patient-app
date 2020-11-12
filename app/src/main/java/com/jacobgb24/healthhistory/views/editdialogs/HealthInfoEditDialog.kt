@@ -23,7 +23,11 @@ import com.jacobgb24.healthhistory.views.components.MaterialSpinnerAdapter
 import kotlinx.android.synthetic.main.dialog_height_input.view.*
 import java.lang.Exception
 
-
+/**
+ * Defines the dialog that lets a user edit their `PersonalInfo`.
+ * This dialog is unique as it contains RecyclerViews. While normally two-way bindings are
+ * used between UI and models, the Recyclers are set at start then the model is updated on save.
+ */
 class HealthInfoEditDialog : DialogFragment() {
     private val model: HealthInfoEditViewModel by activityViewModels()
     private lateinit var progressBar: ProgressBar
@@ -37,17 +41,20 @@ class HealthInfoEditDialog : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // binding setup
         val binding: DialogEditHealthBinding =
             DataBindingUtil.inflate(inflater, R.layout.dialog_edit_health, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewmodel = model
         model.patientInfo.value = arguments?.getParcelable("OBJ")
 
+        // toolbar setup
         val toolbar: Toolbar = binding.toolbar
         toolbar.title = "Edit Health Info"
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
         setHasOptionsMenu(true)
 
+        // other setup
         progressBar = binding.saveProgress
 
         binding.editBirthdate.prepareForDate(requireContext())
