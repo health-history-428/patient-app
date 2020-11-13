@@ -20,8 +20,21 @@ class InfoViewModel @ViewModelInject constructor(
     private val refreshTrigger = MutableLiveData(Unit)
 
     val patientInfo: LiveData<Resource<PatientInfo>> = getData(api::getPatientInfo, PatientInfo())
-    val insurance: LiveData<Resource<Insurance>> = getData(api::getInsurance, Insurance())
-    val contact: LiveData<Resource<Contact>> = getData(api::getContact, Contact())
+
+    val insurance: LiveData<Resource<Insurance>> = getData({
+        val insurance = api.getInsurance()
+        //TODO: update address call
+        insurance
+    }, Insurance())
+
+    val contact: LiveData<Resource<Contact>> = getData({
+        val contact = api.getContact()
+        // if we got an address id, make an extra call to get that address
+        if (contact.address_id != null)
+            contact.address = api.getAddress(contact.address_id!!)
+        contact
+    }, Contact())
+
 
     val isLoading = combineData(patientInfo, insurance, contact) {
         patientInfo.value?.status == Resource.Status.LOADING ||
@@ -56,5 +69,6 @@ class InfoViewModel @ViewModelInject constructor(
                 }
             }
         }
+
 
 }

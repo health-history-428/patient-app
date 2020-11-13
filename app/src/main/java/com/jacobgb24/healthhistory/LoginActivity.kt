@@ -61,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.dev_tools -> {
                 val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_dev, null)
-                AlertDialog.Builder(this).setView(dialogView).setTitle("Dev Tools").show()
+                val dialog = AlertDialog.Builder(this).setView(dialogView).setTitle("Dev Tools").show()
 
                 dialogView.dev_ip.setText(sharedPrefs.getString("SERVER_IP", "10.0.2.2"))
                 dialogView.dev_port.setText(sharedPrefs.getInt("SERVER_PORT", 8000).toString())
@@ -75,6 +75,7 @@ class LoginActivity : AppCompatActivity() {
                         .apply()
 
                     ApiBuilder.resetApi(applicationContext)
+                    dialog.dismiss()
                     finish()
                     startActivity(intent)
                 }

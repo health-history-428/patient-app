@@ -1,12 +1,10 @@
 package com.jacobgb24.healthhistory.api
 
-import com.jacobgb24.healthhistory.model.Contact
-import com.jacobgb24.healthhistory.model.Insurance
-import com.jacobgb24.healthhistory.model.PatientInfo
-import com.jacobgb24.healthhistory.model.User
+import com.jacobgb24.healthhistory.model.*
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 /**
  * This interface defines all API calls to the backend.
@@ -42,4 +40,7 @@ interface ApiInterface {
 
     @POST("contact")
     suspend fun updateContact(@Body contact: Contact): Contact
+
+    @GET("address/{id}")
+    suspend fun getAddress(@Path("id") id: String): Address
 }

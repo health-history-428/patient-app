@@ -6,7 +6,6 @@ import java.util.*
 
 @Parcelize
 data class Insurance(
-//    var user: User = User(),
     var insurance_company_name: String = "",
     var policy_number: String = "",
     var recipient_last_name: String = "",

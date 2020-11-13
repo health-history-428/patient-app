@@ -71,9 +71,7 @@ class MockApi : ApiInterface {
     }
 
     override suspend fun getContact(): Contact {
-        // random zip code to show refresh occured
-        return Contact(
-            Address("0 N 0 E", "", "Provo", "UT", (0..99999).random().toString().padStart(5, '0')),
+        return Contact("1", null,
             "(000) 123-4567", "John Doe"
         )
     }
@@ -81,6 +79,11 @@ class MockApi : ApiInterface {
     override suspend fun updateContact(contact: Contact): Contact {
         delay(1000)
         return contact
+    }
+
+    override suspend fun getAddress(id: String): Address {
+        // random zip code to show refresh occurred
+        return  Address("0 N 0 E", "", "Provo", "UT", (0..99999).random().toString().padStart(5, '0'))
     }
 
 
