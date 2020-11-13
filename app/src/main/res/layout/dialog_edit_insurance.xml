@@ -97,7 +97,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="text"
                         android:maxLength="1024"
-                        android:text='TODO' />
+                        android:text='@={viewmodel.insurance.subscriber_name}' />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout

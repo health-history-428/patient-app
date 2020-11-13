@@ -14,8 +14,7 @@ data class Insurance(
     var policy_begin_date: Date = Calendar.getInstance().time,
     var policy_end_date: Date = Calendar.getInstance().time,
     var group_number: String = "",
-    var insured_last_name: String = "",
-    var insured_first_name: String = "",
+    var subscriber_name: String = "",
     var employer_name: String = "",
     var employer_address: Address = Address()
 ) : Parcelable
