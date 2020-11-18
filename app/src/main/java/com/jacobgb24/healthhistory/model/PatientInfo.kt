@@ -6,7 +6,7 @@ import java.util.*
 
 @Parcelize
 data class PatientInfo(
-    var birthdate: Date = Calendar.getInstance().time,
+    var birthdate: Date? = null,
     var height: String = "",
     var gender: String = "",
     var allergies: MutableList<String> = mutableListOf(),

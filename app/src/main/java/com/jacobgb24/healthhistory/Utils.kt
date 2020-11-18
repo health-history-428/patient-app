@@ -60,7 +60,7 @@ fun setErrorMessage(view: TextInputLayout, errorMessage: String?) {
  */
 fun <T> listToString(l: List<T>?): String {
     if (l == null || l.isEmpty()) {
-        return "None"
+        return ""
     }
     return l.joinToString("; ")
 }
