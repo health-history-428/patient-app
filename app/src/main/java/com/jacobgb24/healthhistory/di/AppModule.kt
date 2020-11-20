@@ -1,4 +1,4 @@
-package di
+package com.jacobgb24.healthhistory.di
 
 import android.content.Context
 import com.jacobgb24.healthhistory.api.ApiBuilder

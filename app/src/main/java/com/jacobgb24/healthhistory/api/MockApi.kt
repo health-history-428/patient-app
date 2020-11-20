@@ -45,7 +45,7 @@ class MockApi : ApiInterface {
             "Doe", "John",
             Calendar.getInstance().time, Calendar.getInstance().time,
             "876554321", "Joe Smith",
-            "Real Company Ltd.",
+            "Real Company Ltd.", null,
             Address("0 N 0 E", "", "Provo", "UT", "84606")
         )
     }

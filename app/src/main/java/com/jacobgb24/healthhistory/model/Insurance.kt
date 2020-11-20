@@ -1,6 +1,7 @@
 package com.jacobgb24.healthhistory.model
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -15,5 +16,6 @@ data class Insurance(
     var group_number: String = "",
     var subscriber_name: String = "",
     var employer_name: String = "",
-    var employer_address: Address = Address()
+    @SerializedName("employer_address") var employer_address_id: String? = null,
+    @SerializedName("employer_address_info") var employer_address: Address = Address()
 ) : Parcelable

@@ -23,7 +23,8 @@ class InfoViewModel @ViewModelInject constructor(
 
     val insurance: LiveData<Resource<Insurance>> = getData({
         val insurance = api.getInsurance()
-        //TODO: update address call
+        if (insurance.employer_address_id != null)
+            insurance.employer_address = api.getAddress(insurance.employer_address_id!!)
         insurance
     }, Insurance())
 
