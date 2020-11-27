@@ -9,14 +9,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.jacobgb24.healthhistory.BaseApplication
-import com.jacobgb24.healthhistory.api.ApiError
 import com.jacobgb24.healthhistory.api.ApiInterface
 import com.jacobgb24.healthhistory.api.Resource
 import com.jacobgb24.healthhistory.combineData
+import com.jacobgb24.healthhistory.getApiError
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
-import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 class LoginViewModel @ViewModelInject constructor(
@@ -54,8 +51,8 @@ class LoginViewModel @ViewModelInject constructor(
                     )
                 )
             )
-        } catch (exception: Exception) {
-            emit(Resource.error(null, "Error: ${ApiError(exception).errorMsg}"))
+        } catch (e: Exception) {
+            emit(Resource.error(null, "Error: ${e.getApiError()}"))
         }
     }
 

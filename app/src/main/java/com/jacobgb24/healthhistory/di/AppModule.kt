@@ -1,14 +1,12 @@
-package di
+package com.jacobgb24.healthhistory.di
 
 import android.content.Context
-import android.content.SharedPreferences
 import com.jacobgb24.healthhistory.api.ApiBuilder
 import com.jacobgb24.healthhistory.api.ApiInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
@@ -28,5 +26,5 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun couroutineDispatcher(): CoroutineContext = Dispatchers.IO
+    fun coroutineDispatcher(): CoroutineContext = Dispatchers.IO
 }

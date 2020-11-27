@@ -10,25 +10,31 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.jacobgb24.healthhistory.api.ApiBuilder
-import com.jacobgb24.healthhistory.views.login.LoginFragment
-import com.jacobgb24.healthhistory.views.login.RegistrationFragment
+import com.jacobgb24.healthhistory.views.LoginFragment
+import com.jacobgb24.healthhistory.views.RegistrationFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.dev_dialog.view.*
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.dialog_dev.view.*
 
-
+/**
+ * Starting activity when the app is launched. Presents either a login or registration fragment.
+ * If a user has previously logged in we show that fragment otherwise we show registration.
+ *
+ */
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     private lateinit var sharedPrefs: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
+        setSupportActionBar(toolbar)
 
         // if we have a saved email start on the login screen
         sharedPrefs = getSharedPreferences("PREFS", Context.MODE_PRIVATE)
         if (sharedPrefs.getString("USER_EMAIL", "") != "") {
             setFragment(LoginFragment())
-        }
-        else {
+        } else {
             setFragment(RegistrationFragment())
         }
 
@@ -42,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun setFragment(frag: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(android.R.id.content, frag)
+            .replace(R.id.main_container, frag)
             .commit()
     }
 
@@ -52,22 +58,24 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
+        return when (item.itemId) {
             R.id.dev_tools -> {
-                val dialogView = LayoutInflater.from(this).inflate(R.layout.dev_dialog, null)
-                AlertDialog.Builder(this).setView(dialogView).setTitle("Dev Tools").show()
+                val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_dev, null)
+                val dialog = AlertDialog.Builder(this).setView(dialogView).setTitle("Dev Tools").show()
 
                 dialogView.dev_ip.setText(sharedPrefs.getString("SERVER_IP", "10.0.2.2"))
                 dialogView.dev_port.setText(sharedPrefs.getInt("SERVER_PORT", 8000).toString())
+                dialogView.dev_mock.isChecked = sharedPrefs.getBoolean("SERVER_MOCK", false)
 
                 dialogView.dev_save.setOnClickListener {
                     sharedPrefs.edit()
                         .putString("SERVER_IP", dialogView.dev_ip.text.toString())
                         .putInt("SERVER_PORT", dialogView.dev_port.text.toString().toInt())
-//                        .putBoolean("SERVER_MOCK", dialogView.dev_mock.isChecked)
+                        .putBoolean("SERVER_MOCK", dialogView.dev_mock.isChecked)
                         .apply()
 
-                    ApiBuilder.resetUrl(applicationContext)
+                    ApiBuilder.resetApi(applicationContext)
+                    dialog.dismiss()
                     finish()
                     startActivity(intent)
                 }

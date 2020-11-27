@@ -1,8 +1,10 @@
 package com.jacobgb24.healthhistory.api
 
-import com.jacobgb24.healthhistory.model.User
+import com.jacobgb24.healthhistory.model.*
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 /**
  * This interface defines all API calls to the backend.
@@ -11,11 +13,34 @@ import retrofit2.http.POST
 interface ApiInterface {
 
     data class LoginReq(val email: String, val password: String)
+
     @POST("login")
     suspend fun loginUser(@Body obj: LoginReq): User
 
-
     data class RegisterReq(val email: String, val password: String, val confirm_password: String)
+
     @POST("register")
     suspend fun registerUser(@Body obj: RegisterReq): User
+
+
+    @GET("insurance")
+    suspend fun getInsurance(): Insurance
+
+    @POST("insurance")
+    suspend fun updateInsurance(@Body insurance: Insurance): Insurance
+
+    @GET("patient_information")
+    suspend fun getPatientInfo(): PatientInfo
+
+    @POST("patient_information")
+    suspend fun updatePatientInfo(@Body info: PatientInfo): PatientInfo
+
+    @GET("contact")
+    suspend fun getContact(): Contact
+
+    @POST("contact")
+    suspend fun updateContact(@Body contact: Contact): Contact
+
+    @GET("address/{id}")
+    suspend fun getAddress(@Path("id") id: String): Address
 }

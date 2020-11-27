@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="InfoHeader">
+        <attr name="headerTitle" format="string" />
+        <attr name="headerIcon" format="integer" />
+        <attr name="headerButtonText" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="InfoItem">
+        <attr name="itemKey" format="string" />
+        <attr name="itemVal" format="string" />
+    </declare-styleable>
+</resources>

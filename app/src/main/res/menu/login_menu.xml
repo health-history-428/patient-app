@@ -4,7 +4,6 @@
     <item
         android:id="@+id/dev_tools"
         android:icon="@drawable/ic_dev"
-        app:showAsAction="always"
-        android:title="Dev">
-    </item>
+        android:title="Dev"
+        app:showAsAction="always"></item>
 </menu>
