@@ -12,6 +12,9 @@ import retrofit2.http.Path
  */
 interface ApiInterface {
 
+    /*
+     * Login / Registration
+     */
     data class LoginReq(val email: String, val password: String)
 
     @POST("login")
@@ -22,7 +25,9 @@ interface ApiInterface {
     @POST("register")
     suspend fun registerUser(@Body obj: RegisterReq): User
 
-
+    /*
+     * Data
+     */
     @GET("insurance")
     suspend fun getInsurance(): Insurance
 
@@ -43,4 +48,18 @@ interface ApiInterface {
 
     @GET("address/{id}")
     suspend fun getAddress(@Path("id") id: String): Address
+
+    /*
+     * Shares
+     */
+    @GET("share/pending")
+    suspend fun getPendingShares(): List<Share>
+
+    data class ShareResponse(val share: String)
+
+    @POST("share/approve")
+    suspend fun approveShare(@Body shareResponse: ShareResponse): Share
+
+    @POST("share/deny")
+    suspend fun denyShare(@Body shareResponse: ShareResponse): Share
 }
