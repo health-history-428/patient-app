@@ -81,6 +81,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapWords"
+                        android:imeOptions="actionDone"
                         android:maxLength="1024"
                         android:text='@={viewmodel.insurance.insurance_company_name}' />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -95,7 +96,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
+                        android:inputType="textPersonName"
+                        android:imeOptions="actionDone"
                         android:maxLength="1024"
                         android:text='@={viewmodel.insurance.subscriber_name}' />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -143,6 +145,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
+                        android:imeOptions="actionDone"
                         android:maxLength="1024"
                         android:text='@={viewmodel.insurance.group_number}' />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -162,7 +165,8 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
+                        android:inputType="textCapWords"
+                        android:imeOptions="actionDone"
                         android:maxLength="1024"
                         android:text='@={viewmodel.insurance.employer_name}' />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -178,6 +182,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPostalAddress"
+                        android:imeOptions="actionDone"
                         android:maxLength="1024"
                         android:text='@={viewmodel.insurance.employer_address.address_1}' />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -193,6 +198,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPostalAddress"
+                        android:imeOptions="actionDone"
                         android:maxLength="1024"
                         android:text='@={viewmodel.insurance.employer_address.address_2}' />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -217,6 +223,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textCapWords"
+                            android:imeOptions="actionDone"
                             android:maxLength="1024"
                             android:text='@={viewmodel.insurance.employer_address.city}' />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -232,6 +239,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textCapCharacters"
+                            android:imeOptions="actionDone"
                             android:maxLength="2"
                             android:text='@={viewmodel.insurance.employer_address.state}' />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -247,6 +255,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="number"
+                            android:imeOptions="actionDone"
                             android:maxLength="1024"
                             android:text='@={viewmodel.insurance.employer_address.zip_code}' />
                     </com.google.android.material.textfield.TextInputLayout>

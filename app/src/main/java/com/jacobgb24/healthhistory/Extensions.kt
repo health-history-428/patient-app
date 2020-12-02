@@ -27,7 +27,7 @@ fun <T> MutableLiveData<T>.notifyObserver() {
  * Also sets ime options which is a prereq for listening to events
  */
 fun TextInputLayout.doOnEnter(action: () -> Unit) {
-    this.editText?.imeOptions = EditorInfo.IME_ACTION_SEARCH
+    this.editText?.imeOptions = EditorInfo.IME_ACTION_GO
     this.editText?.setOnKeyListener { _, keyCode, event ->
         if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
             action.invoke()

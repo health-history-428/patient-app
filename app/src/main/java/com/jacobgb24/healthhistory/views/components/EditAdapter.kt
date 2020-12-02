@@ -45,6 +45,7 @@ class EditAdapter : RecyclerView.Adapter<EditAdapter.EditHolder>() {
     }
 
     override fun onBindViewHolder(holder: EditHolder, position: Int) {
+        holder.itemView.item_count.text = "${position + 1}."
         holder.itemView.item_edittext.editText?.setText(list[position])
         holder.itemView.item_edittext.editText?.addTextChangedListener {
             list[position] = it.toString()

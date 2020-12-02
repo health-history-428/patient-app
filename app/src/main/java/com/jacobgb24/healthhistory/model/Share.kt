@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class Share(
         var id: String = "0",
         var owner: User = User(),
-        var requester: Account = Account(),
+        var viewer: Account = Account(),
         var status: SharedStatus = SharedStatus.REQUESTED
 ) : Parcelable
