@@ -52,8 +52,8 @@ interface ApiInterface {
     /*
      * Shares
      */
-    @GET("share/pending")
-    suspend fun getPendingShares(): List<Share>
+    @GET("share/owner")
+    suspend fun getAllShares(): List<Share>
 
     data class ShareResponse(val share: String)
 

@@ -1,20 +1,14 @@
 package com.jacobgb24.healthhistory
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import com.jacobgb24.healthhistory.api.Resource
-import com.jacobgb24.healthhistory.viewmodels.InfoViewModel
 import com.jacobgb24.healthhistory.viewmodels.MainViewModel
 import com.jacobgb24.healthhistory.views.InfoFragment
-import com.jacobgb24.healthhistory.views.VisitsFragment
+import com.jacobgb24.healthhistory.views.SharesFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -26,8 +20,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     private val model: MainViewModel by viewModels()
 
+    private var currentFrag: Fragment? = null
     private val infoFragment = InfoFragment()
-    private val visitsFragment = VisitsFragment()
+    private val sharesFragment = SharesFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.main_visits_item -> {
-                    setFragment(visitsFragment)
+                    setFragment(sharesFragment)
                     true
                 }
                 else -> {
@@ -51,26 +46,20 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        model.getShares().observe(this, {
-            it?.let { resource ->
-                when (resource.status) {
-                    Resource.Status.SUCCESS -> {
-                        if (resource.data?.isNotEmpty() == true) {
-                            // TODO: Dialog here
-                        }
-                    }
-                    Resource.Status.ERROR -> {
-                        Toast.makeText(this, resource.message, Toast.LENGTH_SHORT).show()
-                    }
-                    else -> {}
+        model.notifyPending().observe(this, {
+            it?.let {
+                if (it.status == Resource.Status.SUCCESS && currentFrag != sharesFragment) {
+                    Snackbar.make(main_container, "${it.data} pending share request(s)", Snackbar.LENGTH_LONG)
+                            .setAction("RESPOND") { setFragment(sharesFragment) }
+                            .show()
                 }
-
             }
         })
     }
 
 
     private fun setFragment(frag: Fragment) {
+        currentFrag = frag
         supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, frag)
             .commit()

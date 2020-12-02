@@ -11,31 +11,39 @@ import com.jacobgb24.healthhistory.quickLog
 import retrofit2.HttpException
 import kotlin.coroutines.CoroutineContext
 
-/**
- * ViewModel for main activity. This activity has a very minimal view (since it primarily holds
- * fragments). We use this view model to check for new shares and show a snackbar.
- */
-class MainViewModel @ViewModelInject constructor(
+class SharesViewModel @ViewModelInject constructor(
         private var api: ApiInterface,
         private val dispatcher: CoroutineContext
 ) : ViewModel() {
 
-    private var lastSeenShares = emptySet<String>()
 
-    fun notifyPending() = liveData(dispatcher) {
+    fun getShares() = liveData<Resource<List<Share>>>(dispatcher) {
         while(true) {
             try {
-                val currentPending = api.getAllShares().filter { it.status == SharedStatus.REQUESTED }
-                val ids = HashSet(currentPending.map { it.id })
-                if (ids != lastSeenShares && ids.isNotEmpty()) {
-                    emit(Resource.success(ids.size))
-                }
-                lastSeenShares = ids
+                emit(Resource.success(api.getAllShares()))
             } catch (e: Exception) {
                 emit(Resource.error(null, "Error: ${e.getApiError()}"))
             }
             quickLog("fired shares")
             kotlinx.coroutines.delay(5000)
+        }
+    }
+
+    fun respondToShare(share: Share, response: SharedStatus) = liveData(dispatcher) {
+        emit(Resource.loading())
+        try {
+            val res = ApiInterface.ShareResponse(share.id)
+            when(response) {
+                SharedStatus.APPROVED -> {
+                    emit(Resource.success(api.approveShare(res)))
+                }
+                SharedStatus.DENIED -> {
+                    emit(Resource.success(api.denyShare(res)))
+                }
+                else -> {}
+            }
+        } catch (e: Exception) {
+            emit(Resource.error(null, "Error: ${e.getApiError()}"))
         }
     }
 

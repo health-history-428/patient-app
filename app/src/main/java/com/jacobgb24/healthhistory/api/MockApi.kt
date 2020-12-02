@@ -86,5 +86,18 @@ class MockApi : ApiInterface {
         return  Address("0 N 0 E", "", "Provo", "UT", (0..99999).random().toString().padStart(5, '0'))
     }
 
+    override suspend fun getAllShares(): List<Share> {
+        return emptyList()
+        // TODO better mock
+    }
+
+    override suspend fun approveShare(shareResponse: ApiInterface.ShareResponse): Share {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun denyShare(shareResponse: ApiInterface.ShareResponse): Share {
+        TODO("Not yet implemented")
+    }
+
 
 }

@@ -6,7 +6,7 @@
 
         <variable
             name="viewmodel"
-            type="com.jacobgb24.healthhistory.viewmodels.VisitsViewModel" />
+            type="com.jacobgb24.healthhistory.viewmodels.SharesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
