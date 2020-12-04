@@ -4,11 +4,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.jacobgb24.healthhistory.api.ApiInterface
 import com.jacobgb24.healthhistory.api.Resource
-import com.jacobgb24.healthhistory.combineData
 import com.jacobgb24.healthhistory.getApiError
 import com.jacobgb24.healthhistory.model.*
-import com.jacobgb24.healthhistory.quickLog
-import retrofit2.HttpException
 import kotlin.coroutines.CoroutineContext
 
 class SharesViewModel @ViewModelInject constructor(
@@ -24,21 +21,19 @@ class SharesViewModel @ViewModelInject constructor(
             } catch (e: Exception) {
                 emit(Resource.error(null, "Error: ${e.getApiError()}"))
             }
-            quickLog("fired shares")
-            kotlinx.coroutines.delay(5000)
         }
     }
 
     fun respondToShare(share: Share, response: SharedStatus) = liveData(dispatcher) {
         emit(Resource.loading())
         try {
-            val res = ApiInterface.ShareResponse(share.id)
+            val req = ApiInterface.ShareResponse(share.id)
             when(response) {
                 SharedStatus.APPROVED -> {
-                    emit(Resource.success(api.approveShare(res)))
+                    emit(Resource.success(api.approveShare(req)))
                 }
                 SharedStatus.DENIED -> {
-                    emit(Resource.success(api.denyShare(res)))
+                    emit(Resource.success(api.denyShare(req)))
                 }
                 else -> {}
             }

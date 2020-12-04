@@ -87,6 +87,7 @@ class MockApi : ApiInterface {
     }
 
     override suspend fun getAllShares(): List<Share> {
+        Share()
         return emptyList()
         // TODO better mock
     }

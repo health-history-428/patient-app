@@ -48,9 +48,12 @@ class MainActivity : AppCompatActivity() {
 
         model.notifyPending().observe(this, {
             it?.let {
-                if (it.status == Resource.Status.SUCCESS && currentFrag != sharesFragment) {
+                if (it.status == Resource.Status.SUCCESS) {
                     Snackbar.make(main_container, "${it.data} pending share request(s)", Snackbar.LENGTH_LONG)
-                            .setAction("RESPOND") { setFragment(sharesFragment) }
+                            .setAction("RESPOND") {
+                                setFragment(sharesFragment)
+                                sharesFragment.doRefresh()
+                            }
                             .show()
                 }
             }
