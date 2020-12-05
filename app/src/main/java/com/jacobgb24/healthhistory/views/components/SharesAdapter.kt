@@ -55,8 +55,6 @@ class SharesAdapter : RecyclerView.Adapter<SharesAdapter.SharesHolder>() {
                 }
             }
         }
-
-        //TODO: disable unselecting, better styling
     }
 
     override fun getItemCount(): Int {

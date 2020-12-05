@@ -20,6 +20,7 @@
         android:id="@+id/selection_group"
         android:backgroundTint="?attr/colorAccent"
         app:singleSelection="true"
+        app:selectionRequired="true"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,6 +32,9 @@
             android:id="@+id/button_deny"
             app:icon="@drawable/ic_close"
             style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            app:strokeColor="#cbcbcb"
+            app:rippleColor="#44cc0000"
+            android:backgroundTint="@drawable/share_button_selector"
             app:iconTint="@android:color/holo_red_dark"/>
         <Button
             android:layout_height="wrap_content"
@@ -38,6 +42,9 @@
             android:id="@+id/button_approve"
             app:icon="@drawable/ic_check"
             style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            app:strokeColor="#cbcbcb"
+            app:rippleColor="#44669900"
+            android:backgroundTint="@drawable/share_button_selector"
             app:iconTint="@android:color/holo_green_dark"/>
     </com.google.android.material.button.MaterialButtonToggleGroup>
 

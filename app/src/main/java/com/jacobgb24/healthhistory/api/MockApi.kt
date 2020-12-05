@@ -90,18 +90,18 @@ class MockApi : ApiInterface {
     }
 
     override suspend fun getAccount(id: String): Account {
-        return Account(owner_id = "1")
+        return Account(owner_id = id)
     }
 
     override suspend fun getUser(id: String): User {
-        return User(email = "${(0..100).random()}@mail.com")
+        return User(email = "$id@mail.com")
     }
 
     override suspend fun getAllShares(): Map<String, Share> {
         if ((0..4).random() == 1 && shares.size < 5) {
             quickLog("mock adding share")
             val id = UUID.randomUUID().toString()
-            shares[id] = Share(viewer_id = "1", status = SharedStatus.REQUESTED, id = id)
+            shares[id] = Share(viewer_id = (0..100).random().toString(), status = SharedStatus.REQUESTED, id = id)
         }
         quickLog("mock returning ${shares.size}")
         return shares
