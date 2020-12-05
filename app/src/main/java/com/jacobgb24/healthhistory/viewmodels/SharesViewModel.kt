@@ -6,6 +6,7 @@ import com.jacobgb24.healthhistory.api.ApiInterface
 import com.jacobgb24.healthhistory.api.Resource
 import com.jacobgb24.healthhistory.getApiError
 import com.jacobgb24.healthhistory.model.*
+import com.jacobgb24.healthhistory.quickLog
 import kotlin.coroutines.CoroutineContext
 
 class SharesViewModel @ViewModelInject constructor(
@@ -15,16 +16,16 @@ class SharesViewModel @ViewModelInject constructor(
 
 
     fun getShares() = liveData<Resource<List<Share>>>(dispatcher) {
-        while(true) {
-            try {
-                emit(Resource.success(api.getAllShares()))
-            } catch (e: Exception) {
-                emit(Resource.error(null, "Error: ${e.getApiError()}"))
-            }
+        emit(Resource.loading())
+        try {
+            emit(Resource.success(api.getAllShares()))
+        } catch (e: Exception) {
+            emit(Resource.error(null, "Error: ${e.getApiError()}"))
         }
     }
 
     fun respondToShare(share: Share, response: SharedStatus) = liveData(dispatcher) {
+        quickLog("model respond to share ${share.viewer.owner.email} $response")
         emit(Resource.loading())
         try {
             val req = ApiInterface.ShareResponse(share.id)

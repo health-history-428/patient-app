@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jacobgb24.healthhistory.R
 import com.jacobgb24.healthhistory.model.Share
 import com.jacobgb24.healthhistory.model.SharedStatus
+import com.jacobgb24.healthhistory.quickLog
 import kotlinx.android.synthetic.main.list_item_share.view.*
 
 /**
@@ -32,21 +33,30 @@ class SharesAdapter : RecyclerView.Adapter<SharesAdapter.SharesHolder>() {
         val share = list[position]
         holder.itemView.text_viewer.text = share.viewer.owner.email
 
+        quickLog("showing share for ${share.viewer.owner.email} w/ status ${share.status}")
+
         if (share.status == SharedStatus.DENIED) {
-            holder.itemView.button_deny.setBackgroundColor(Color.BLUE)
+            holder.itemView.selection_group.check(R.id.button_deny)
         }
-        else {
-            holder.itemView.button_deny.setOnClickListener { denyCallback.invoke(share) }
-        }
-
-        if (share.status == SharedStatus.APPROVED) {
-            holder.itemView.button_approve.setBackgroundColor(Color.BLUE)
-        }
-        else {
-            holder.itemView.button_approve.setOnClickListener { approveCallback.invoke(share) }
+        else if (share.status == SharedStatus.APPROVED) {
+            holder.itemView.selection_group.check(R.id.button_approve)
         }
 
-        //TODO: differentiate answered from new
+
+        holder.itemView.selection_group.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                if (checkedId == R.id.button_approve && share.status != SharedStatus.APPROVED) {
+                    quickLog("Approving $share")
+                    approveCallback.invoke(share)
+                }
+                else if (checkedId == R.id.button_deny && share.status != SharedStatus.DENIED) {
+                    quickLog("Denying $share")
+                    denyCallback.invoke(share)
+                }
+            }
+        }
+
+        //TODO: disable unselecting, better styling
     }
 
     override fun getItemCount(): Int {

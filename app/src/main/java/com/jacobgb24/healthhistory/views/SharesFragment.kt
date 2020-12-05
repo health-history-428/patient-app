@@ -14,6 +14,7 @@ import com.jacobgb24.healthhistory.api.Resource
 import com.jacobgb24.healthhistory.databinding.FragmentSharesBinding
 import com.jacobgb24.healthhistory.model.Share
 import com.jacobgb24.healthhistory.model.SharedStatus
+import com.jacobgb24.healthhistory.quickLog
 import com.jacobgb24.healthhistory.viewmodels.SharesViewModel
 import com.jacobgb24.healthhistory.views.components.SharesAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,14 +39,8 @@ class SharesFragment : Fragment() {
         refresh.setOnRefreshListener { doRefresh() }
 
         binding.shareList.adapter = adapter
-        adapter.approveCallback = { s: Share ->
-            model.respondToShare(s, SharedStatus.APPROVED)
-            doRefresh()
-        }
-        adapter.denyCallback = { s: Share ->
-            model.respondToShare(s, SharedStatus.DENIED)
-            doRefresh()
-        }
+        adapter.approveCallback = { s: Share -> sendResponse(s, SharedStatus.APPROVED) }
+        adapter.denyCallback = { s: Share -> sendResponse(s, SharedStatus.DENIED) }
 
         return binding.root
     }
@@ -55,25 +50,40 @@ class SharesFragment : Fragment() {
         doRefresh()
     }
 
-    fun doRefresh() {
-        model.getShares().observe(viewLifecycleOwner, {
+    private fun sendResponse(share: Share, response: SharedStatus) {
+        model.respondToShare(share, response).observe(viewLifecycleOwner, {
             it?.let { resource ->
-                when (resource.status) {
-                    Resource.Status.LOADING -> {
-                        refresh.isRefreshing = true
-                    }
-                    Resource.Status.SUCCESS -> {
-                        adapter.list = resource.data ?: listOf()
-                        refresh.isRefreshing = false
-                    }
-                    Resource.Status.ERROR -> {
-                        Toast.makeText(activity, resource.message, Toast.LENGTH_SHORT).show()
-                        refresh.isRefreshing = false
-                    }
+                when(resource.status) {
+                    Resource.Status.SUCCESS, Resource.Status.ERROR ->
+                        doRefresh()
+                    else -> {}
                 }
-
             }
         })
+    }
+
+    fun doRefresh() {
+        if (isAdded) {
+            quickLog("UI refresh")
+            model.getShares().observe(viewLifecycleOwner, {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Resource.Status.LOADING -> {
+                            refresh.isRefreshing = true
+                        }
+                        Resource.Status.SUCCESS -> {
+                            adapter.list = resource.data ?: listOf()
+                            refresh.isRefreshing = false
+                        }
+                        Resource.Status.ERROR -> {
+                            Toast.makeText(activity, resource.message, Toast.LENGTH_SHORT).show()
+                            refresh.isRefreshing = false
+                        }
+                    }
+
+                }
+            })
+        }
     }
 
 }

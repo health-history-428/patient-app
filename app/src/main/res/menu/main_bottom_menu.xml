@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_person"
         android:title="Personal Info" />
     <item
-        android:id="@+id/main_visits_item"
+        android:id="@+id/main_shares_item"
         android:enabled="true"
         android:icon="@drawable/ic_share"
         android:title="Shares" />

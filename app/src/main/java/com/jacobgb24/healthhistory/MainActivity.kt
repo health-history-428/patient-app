@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                     setFragment(infoFragment)
                     true
                 }
-                R.id.main_visits_item -> {
+                R.id.main_shares_item -> {
                     setFragment(sharesFragment)
                     true
                 }
@@ -49,10 +49,11 @@ class MainActivity : AppCompatActivity() {
         model.notifyPending().observe(this, {
             it?.let {
                 if (it.status == Resource.Status.SUCCESS) {
-                    Snackbar.make(main_container, "${it.data} pending share request(s)", Snackbar.LENGTH_LONG)
+                    Snackbar.make(main_coord, "${it.data} pending share request(s)", Snackbar.LENGTH_LONG)
                             .setAction("RESPOND") {
                                 setFragment(sharesFragment)
                                 sharesFragment.doRefresh()
+                                bottom_navigation.selectedItemId = R.id.main_shares_item
                             }
                             .show()
                 }

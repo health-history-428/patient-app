@@ -1,6 +1,7 @@
 package com.jacobgb24.healthhistory.api
 
 import com.jacobgb24.healthhistory.model.*
+import com.jacobgb24.healthhistory.quickLog
 import kotlinx.coroutines.delay
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -12,6 +13,8 @@ import java.util.*
  * A mock API useful for testing. This can be set in the dev menu on the login page
  */
 class MockApi : ApiInterface {
+
+    @Volatile private var shares = mutableListOf<Share>()
 
     /**
      * Helpful function for creating an exception like what the real server produces
@@ -87,17 +90,27 @@ class MockApi : ApiInterface {
     }
 
     override suspend fun getAllShares(): List<Share> {
-        Share()
-        return emptyList()
-        // TODO better mock
+        if ((0..4).random() == 1 && shares.size < 5) {
+            quickLog("mock adding share")
+            shares.add(Share(viewer = Account(User(email = "${(0..100).random()}@mail.com")),
+                status = SharedStatus.REQUESTED, id = UUID.randomUUID().toString()))
+        }
+        quickLog("mock returning ${shares.size}")
+        return shares
     }
 
     override suspend fun approveShare(shareResponse: ApiInterface.ShareResponse): Share {
-        TODO("Not yet implemented")
+        val share = shares.first { it.id == shareResponse.share }
+        share.status = SharedStatus.APPROVED
+        quickLog("mock approved $share")
+        return share
     }
 
     override suspend fun denyShare(shareResponse: ApiInterface.ShareResponse): Share {
-        TODO("Not yet implemented")
+        val share = shares.first { it.id == shareResponse.share }
+        share.status = SharedStatus.DENIED
+        quickLog("mock denied $share")
+        return share
     }
 
 

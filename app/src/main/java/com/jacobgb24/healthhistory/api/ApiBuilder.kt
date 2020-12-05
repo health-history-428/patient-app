@@ -80,7 +80,7 @@ object ApiBuilder {
         val ipStr = sharedPreferences.getString("SERVER_IP", "10.0.2.2") ?: ""
         val portInt = sharedPreferences.getInt("SERVER_PORT", 8000)
         if (api == null) {
-            return if (useMock) MockApi() else createInstance(ipStr, portInt)
+            api = if (useMock) MockApi() else createInstance(ipStr, portInt)
         }
         return api!!
     }
