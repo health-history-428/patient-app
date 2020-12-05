@@ -31,9 +31,9 @@ class SharesAdapter : RecyclerView.Adapter<SharesAdapter.SharesHolder>() {
 
     override fun onBindViewHolder(holder: SharesHolder, position: Int) {
         val share = list[position]
-        holder.itemView.text_viewer.text = share.viewer.owner.email
+        holder.itemView.text_viewer.text = share.viewer?.owner?.email ?: "Unknown"
 
-        quickLog("showing share for ${share.viewer.owner.email} w/ status ${share.status}")
+        quickLog("showing share for ${share.viewer?.owner?.email} w/ status ${share.status}")
 
         if (share.status == SharedStatus.DENIED) {
             holder.itemView.selection_group.check(R.id.button_deny)

@@ -49,11 +49,17 @@ interface ApiInterface {
     @GET("address/{id}")
     suspend fun getAddress(@Path("id") id: String): Address
 
+    @GET("account/{id}") //TODO: doesn't exist
+    suspend fun getAccount(@Path("id") id: String): Account
+
+    @GET("user/{id}")
+    suspend fun getUser(@Path("id") id: String): User
+
     /*
      * Shares
      */
     @GET("share/owner")
-    suspend fun getAllShares(): List<Share>
+    suspend fun getAllShares(): Map<String, Share>
 
     data class ShareResponse(val share: String)
 

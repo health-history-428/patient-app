@@ -24,8 +24,9 @@ class MainViewModel @ViewModelInject constructor(
 
     fun notifyPending() = liveData(dispatcher) {
         while(true) {
+            kotlinx.coroutines.delay(5000)
             try {
-                val currentPending = api.getAllShares().filter { it.status == SharedStatus.REQUESTED }
+                val currentPending = api.getAllShares().values.filter { it.status == SharedStatus.REQUESTED }
                 val ids = HashSet(currentPending.map { it.id })
                 if (ids != lastSeenShares && ids.isNotEmpty()) {
                     emit(Resource.success(ids.size))
@@ -35,7 +36,6 @@ class MainViewModel @ViewModelInject constructor(
                 emit(Resource.error(null, "Error: ${e.getApiError()}"))
             }
             quickLog("fired shares")
-            kotlinx.coroutines.delay(5000)
         }
     }
 

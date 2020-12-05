@@ -14,7 +14,7 @@ import java.util.*
  */
 class MockApi : ApiInterface {
 
-    @Volatile private var shares = mutableListOf<Share>()
+    @Volatile private var shares = mutableMapOf<String, Share>()
 
     /**
      * Helpful function for creating an exception like what the real server produces
@@ -89,25 +89,33 @@ class MockApi : ApiInterface {
         return  Address("0 N 0 E", "", "Provo", "UT", (0..99999).random().toString().padStart(5, '0'))
     }
 
-    override suspend fun getAllShares(): List<Share> {
+    override suspend fun getAccount(id: String): Account {
+        return Account(owner_id = "1")
+    }
+
+    override suspend fun getUser(id: String): User {
+        return User(email = "${(0..100).random()}@mail.com")
+    }
+
+    override suspend fun getAllShares(): Map<String, Share> {
         if ((0..4).random() == 1 && shares.size < 5) {
             quickLog("mock adding share")
-            shares.add(Share(viewer = Account(User(email = "${(0..100).random()}@mail.com")),
-                status = SharedStatus.REQUESTED, id = UUID.randomUUID().toString()))
+            val id = UUID.randomUUID().toString()
+            shares[id] = Share(viewer_id = "1", status = SharedStatus.REQUESTED, id = id)
         }
         quickLog("mock returning ${shares.size}")
         return shares
     }
 
     override suspend fun approveShare(shareResponse: ApiInterface.ShareResponse): Share {
-        val share = shares.first { it.id == shareResponse.share }
+        val share = shares.values.first { it.id == shareResponse.share }
         share.status = SharedStatus.APPROVED
         quickLog("mock approved $share")
         return share
     }
 
     override suspend fun denyShare(shareResponse: ApiInterface.ShareResponse): Share {
-        val share = shares.first { it.id == shareResponse.share }
+        val share = shares.values.first { it.id == shareResponse.share }
         share.status = SharedStatus.DENIED
         quickLog("mock denied $share")
         return share
