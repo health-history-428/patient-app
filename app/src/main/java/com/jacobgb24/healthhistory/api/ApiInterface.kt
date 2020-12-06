@@ -49,11 +49,6 @@ interface ApiInterface {
     @GET("address/{id}")
     suspend fun getAddress(@Path("id") id: String): Address
 
-    @GET("account/{id}") //TODO: doesn't exist
-    suspend fun getAccount(@Path("id") id: String): Account
-
-    @GET("user/{id}")
-    suspend fun getUser(@Path("id") id: String): User
 
     /*
      * Shares
@@ -61,11 +56,14 @@ interface ApiInterface {
     @GET("share/owner")
     suspend fun getAllShares(): Map<String, Share>
 
-    data class ShareResponse(val share: String)
+    data class ShareResponse(val share_id: String)
 
     @POST("share/approve")
     suspend fun approveShare(@Body shareResponse: ShareResponse): Share
 
     @POST("share/deny")
     suspend fun denyShare(@Body shareResponse: ShareResponse): Share
+
+    @GET("share/request/{acc_id}")
+    suspend fun getViewer(@Path("acc_id") accountId: String): User
 }

@@ -89,12 +89,9 @@ class MockApi : ApiInterface {
         return  Address("0 N 0 E", "", "Provo", "UT", (0..99999).random().toString().padStart(5, '0'))
     }
 
-    override suspend fun getAccount(id: String): Account {
-        return Account(owner_id = id)
-    }
 
-    override suspend fun getUser(id: String): User {
-        return User(email = "$id@mail.com")
+    override suspend fun getViewer(accountId: String): User {
+        return User(email = "$accountId@mail.com")
     }
 
     override suspend fun getAllShares(): Map<String, Share> {
@@ -108,14 +105,14 @@ class MockApi : ApiInterface {
     }
 
     override suspend fun approveShare(shareResponse: ApiInterface.ShareResponse): Share {
-        val share = shares.values.first { it.id == shareResponse.share }
+        val share = shares.values.first { it.id == shareResponse.share_id }
         share.status = SharedStatus.APPROVED
         quickLog("mock approved $share")
         return share
     }
 
     override suspend fun denyShare(shareResponse: ApiInterface.ShareResponse): Share {
-        val share = shares.values.first { it.id == shareResponse.share }
+        val share = shares.values.first { it.id == shareResponse.share_id }
         share.status = SharedStatus.DENIED
         quickLog("mock denied $share")
         return share

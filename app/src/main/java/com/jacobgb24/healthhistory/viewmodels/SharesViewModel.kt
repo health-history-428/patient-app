@@ -21,12 +21,7 @@ class SharesViewModel @ViewModelInject constructor(
             val shares = ArrayList(api.getAllShares().values)
             for (s in shares) {
                 if (s.viewer_id != null) {
-                    s.viewer = api.getAccount(s.viewer_id!!)
-                    s.viewer?.let {
-                        if (it.owner_id != null) {
-                            it.owner = api.getUser(s.viewer_id!!)
-                        }
-                    }
+                    s.viewer = api.getViewer(s.viewer_id!!)
 
                 }
             }
@@ -37,7 +32,7 @@ class SharesViewModel @ViewModelInject constructor(
     }
 
     fun respondToShare(share: Share, response: SharedStatus) = liveData(dispatcher) {
-        quickLog("model respond to share ${share.viewer?.owner?.email} $response")
+        quickLog("model respond to share ${share.viewer?.email} $response")
         emit(Resource.loading())
         try {
             val req = ApiInterface.ShareResponse(share.id)
